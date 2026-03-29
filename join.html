@@ -231,6 +231,11 @@ function setLang(l){currentLang=l;document.documentElement.lang=l;document.query
       <textarea id="nilBio" placeholder="Tell scouts and brands about yourself..." rows="3"></textarea>
     </div>
 
+    <div style="display:flex;align-items:flex-start;gap:10px;margin:20px 0 0;padding-top:16px;border-top:1px solid #eee">
+      <input type="checkbox" id="ageConsent" style="width:20px;height:20px;margin-top:2px;accent-color:var(--orange);flex-shrink:0">
+      <label for="ageConsent" style="font-size:.8rem;color:#555;font-weight:500;line-height:1.5"><span class="en">I am 13 years or older, or my parent/guardian is creating this profile with me. I agree to the <a href="/terms.html" style="color:var(--orange);font-weight:600">Terms of Service</a> and <a href="/privacy.html" style="color:var(--orange);font-weight:600">Privacy Policy</a>.</span><span class="es">Tengo 13 años o más, o mi padre/tutor está creando este perfil conmigo. Acepto los <a href="/terms.html" style="color:var(--orange);font-weight:600">Términos de Servicio</a> y la <a href="/privacy.html" style="color:var(--orange);font-weight:600">Política de Privacidad</a>.</span></label>
+    </div>
+
     <div class="btn-row">
       <button class="btn-back" onclick="goStep(2)">←</button>
       <button class="btn-primary" onclick="submitProfile()" id="submitBtn" style="flex:1"><span class="en">Create My Profile</span><span class="es">Crear Mi Perfil</span></button>
@@ -300,6 +305,7 @@ function goStep(step){
 
 async function submitProfile(){
   hideError();
+  if(!document.getElementById('ageConsent').checked)return showError(currentLang==='es'?'Debes aceptar los términos':'You must agree to the terms');
   var btn=document.getElementById('submitBtn');
   btn.disabled=true;
   btn.textContent=currentLang==='es'?'Creando...':'Creating...';
