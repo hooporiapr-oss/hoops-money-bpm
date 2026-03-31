@@ -91,6 +91,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,.92
 
 .powered{text-align:center;padding:24px;margin-top:12px}.powered a{font-size:.7rem;color:var(--gray);font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}.powered img{height:16px;opacity:.5}
 
+/* TIMELINE */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),rgba(255,215,0,.1))}
+.tl-item{position:relative;margin-bottom:20px;padding-left:20px}
+.tl-item::before{content:'';position:absolute;left:-20px;top:8px;width:12px;height:12px;border-radius:50%;border:2px solid var(--gold);background:var(--black)}
+.tl-item.highlight::before{background:var(--gold);box-shadow:0 0 10px rgba(255,215,0,.4)}
+.tl-year{font-family:'Bebas Neue',sans-serif;font-size:.75rem;color:var(--gold);letter-spacing:2px;margin-bottom:4px}
+.tl-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px}
+.tl-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}
+.tl-name{font-size:.9rem;font-weight:700}
+.tl-type{padding:3px 10px;border-radius:12px;font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
+.tl-type.school{background:rgba(59,130,246,.1);color:#3b82f6}
+.tl-type.aau{background:rgba(255,107,53,.1);color:var(--orange)}
+.tl-type.league{background:rgba(34,197,94,.1);color:var(--green)}
+.tl-type.tournament{background:rgba(155,89,182,.1);color:var(--purple)}
+.tl-type.camp{background:rgba(0,206,209,.1);color:var(--cyan)}
+.tl-type.clinic{background:rgba(154,205,50,.1);color:var(--lime)}
+.tl-type.other{background:rgba(255,255,255,.05);color:var(--gray-light)}
+.tl-meta{font-size:.72rem;color:var(--gray);margin-bottom:8px}
+.tl-stats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.tl-stat{text-align:center;padding:5px 8px;background:rgba(255,255,255,.03);border-radius:6px;min-width:40px}
+.tl-stat .v{font-size:.85rem;font-weight:800;color:var(--green)}.tl-stat .l{font-size:.45rem;color:var(--gray);text-transform:uppercase}
+.tl-awards{font-size:.75rem;color:var(--gold);font-weight:600;margin-top:6px}
+.tl-notes{font-size:.75rem;color:var(--gray-light);margin-top:4px;font-style:italic}
+.tl-summary{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;padding:16px;background:rgba(255,255,255,.02);border-radius:14px;margin-bottom:16px}
+.tl-sum-item{text-align:center}
+.tl-sum-item .v{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold)}
+.tl-sum-item .l{font-size:.6rem;color:var(--gray);text-transform:uppercase;letter-spacing:.5px}
+
 /* COVER PHOTO */
 .cover-banner{width:100%;height:200px;border-radius:24px 24px 0 0;object-fit:cover;display:block;margin-bottom:-24px;position:relative;z-index:0}
 .hero-card.has-cover{border-radius:0 0 24px 24px;margin-top:0}
@@ -171,12 +200,14 @@ var p=pl[0],pm=(p.profile_tier==='premium'||p.profile_tier==='pro');
 sb.from('players').update({profile_views:(p.profile_views||0)+1}).eq('id',p.id);
 var{data:cd}=await sb.from('cognitive_scores').select('*').eq('player_id',p.id);
 var bt={};if(cd)cd.forEach(function(s){if(!bt[s.test_name]||s.level>bt[s.test_name].level)bt[s.test_name]=s});
+var{data:seasonData}=await sb.from('player_seasons').select('*').eq('player_id',p.id).order('season_year',{ascending:false});
+var seasons=seasonData||[];
 document.title=(p.first_name||'')+' '+(p.last_name||'')+' — Hooporia';
-render(p,pm,bt);
+render(p,pm,bt,seasons);
 }catch(e){console.error(e);document.getElementById('loadState').innerHTML='<p style="color:var(--gray)">Error loading profile.</p>'}
 })();
 
-function render(p,pm,bt){var h='';
+function render(p,pm,bt,seasons){var h='';
 // COVER PHOTO
 if(p.cover_url)h+='<img class="cover-banner" src="'+esc(p.cover_url)+'" alt="Cover">';
 // HERO
@@ -218,6 +249,58 @@ if(p.weight)h+='<div class="meas"><div class="val">'+esc(p.weight)+'</div><div c
 if(p.wingspan)h+='<div class="meas"><div class="val">'+esc(p.wingspan)+'</div><div class="lbl" data-en="Wingspan" data-es="Envergadura">Wingspan</div></div>';
 if(p.vertical)h+='<div class="meas"><div class="val">'+esc(p.vertical)+'</div><div class="lbl">Vertical</div></div>';
 h+='</div></div>'}
+
+// BASKETBALL TIMELINE
+if(seasons.length>0){
+h+='<div class="card '+(pm?'pc':'')+'">';
+h+='<div class="card-title" data-en="📅 Basketball Timeline" data-es="📅 Historia de Baloncesto">📅 Basketball Timeline</div>';
+// Summary stats
+var totalSeasons=seasons.length;
+var totalGames=seasons.reduce(function(s,x){return s+(x.games_played||0)},0);
+var totalAwards=seasons.filter(function(x){return x.awards&&x.awards.trim()}).length;
+var yearSpan='';
+var years=seasons.map(function(x){return x.season_year}).filter(Boolean).sort();
+if(years.length>1)yearSpan=years[years.length-1]+' — '+years[0];
+else if(years.length===1)yearSpan=years[0];
+h+='<div class="tl-summary">';
+h+='<div class="tl-sum-item"><div class="v">'+totalSeasons+'</div><div class="l" data-en="Seasons" data-es="Temporadas">Seasons</div></div>';
+if(totalGames)h+='<div class="tl-sum-item"><div class="v">'+totalGames+'</div><div class="l" data-en="Games" data-es="Juegos">Games</div></div>';
+if(totalAwards)h+='<div class="tl-sum-item"><div class="v">'+totalAwards+'</div><div class="l" data-en="Awards" data-es="Premios">Awards</div></div>';
+if(yearSpan)h+='<div class="tl-sum-item"><div class="v" style="font-size:1rem">'+yearSpan+'</div><div class="l" data-en="Years" data-es="Años">Years</div></div>';
+h+='</div>';
+// Timeline entries
+var typeEN={school:'School',aau:'AAU',league:'League',tournament:'Tournament',camp:'Camp',clinic:'Clinic',other:'Other'};
+var typeES={school:'Escuela',aau:'AAU',league:'Liga',tournament:'Torneo',camp:'Campamento',clinic:'Clínica',other:'Otro'};
+h+='<div class="timeline">';
+seasons.forEach(function(s){
+var hasStats=s.stats_ppg||s.stats_rpg||s.stats_apg;
+var hasAwards=s.awards&&s.awards.trim();
+h+='<div class="tl-item'+(hasAwards?' highlight':'')+'">';
+h+='<div class="tl-year">'+(s.season_year||'—')+'</div>';
+h+='<div class="tl-card">';
+h+='<div class="tl-header"><div class="tl-name">'+esc(s.season_name)+'</div>';
+h+='<span class="tl-type '+(s.season_type||'other')+'">'+(currentLang==='es'?(typeES[s.season_type]||s.season_type):(typeEN[s.season_type]||s.season_type))+'</span></div>';
+var meta=[];
+if(s.team_name)meta.push(esc(s.team_name));
+if(s.organization)meta.push(esc(s.organization));
+if(s.games_played)meta.push(s.games_played+' '+(currentLang==='es'?'juegos':'games'));
+if(meta.length)h+='<div class="tl-meta">'+meta.join(' · ')+'</div>';
+if(hasStats){h+='<div class="tl-stats">';
+if(s.stats_ppg)h+='<div class="tl-stat"><div class="v">'+s.stats_ppg+'</div><div class="l">PPG</div></div>';
+if(s.stats_rpg)h+='<div class="tl-stat"><div class="v">'+s.stats_rpg+'</div><div class="l">RPG</div></div>';
+if(s.stats_apg)h+='<div class="tl-stat"><div class="v">'+s.stats_apg+'</div><div class="l">APG</div></div>';
+if(s.stats_spg)h+='<div class="tl-stat"><div class="v">'+s.stats_spg+'</div><div class="l">SPG</div></div>';
+if(s.stats_bpg)h+='<div class="tl-stat"><div class="v">'+s.stats_bpg+'</div><div class="l">BPG</div></div>';
+if(s.fg_pct)h+='<div class="tl-stat"><div class="v">'+s.fg_pct+'%</div><div class="l">FG</div></div>';
+if(s.three_pct)h+='<div class="tl-stat"><div class="v">'+s.three_pct+'%</div><div class="l">3PT</div></div>';
+if(s.ft_pct)h+='<div class="tl-stat"><div class="v">'+s.ft_pct+'%</div><div class="l">FT</div></div>';
+h+='</div>'}
+if(hasAwards)h+='<div class="tl-awards">🏆 '+esc(s.awards)+'</div>';
+if(s.notes)h+='<div class="tl-notes">"'+esc(s.notes)+'"</div>';
+h+='</div></div>';
+});
+h+='</div></div>';
+}
 
 // COGNITIVE
 h+='<div class="card '+(pm?'pc':'')+'"><div class="card-title" data-en="🧠 Hoops Mindset" data-es="🧠 Hoops Mindset">🧠 Hoops Mindset</div>';
