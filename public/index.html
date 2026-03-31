@@ -166,6 +166,65 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
 .footer-links a:hover{color:var(--white)}
 .footer-copy{font-size:.65rem;color:#444}
 
+/* PROFILE PREVIEW TOGGLE */
+.preview-section{padding:80px 0 40px}
+.preview-wrap{max-width:500px;margin:0 auto}
+.preview-toggle{display:flex;justify-content:center;gap:0;margin-bottom:32px}
+.preview-tog-btn{padding:14px 32px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .3s;border:2px solid rgba(255,255,255,.08);background:transparent;color:var(--gray);font-family:'Outfit',sans-serif}
+.preview-tog-btn:first-child{border-radius:12px 0 0 12px;border-right:none}
+.preview-tog-btn:last-child{border-radius:0 12px 12px 0}
+.preview-tog-btn.active-free{background:rgba(255,255,255,.06);color:var(--white);border-color:rgba(255,255,255,.12)}
+.preview-tog-btn.active-prem{background:rgba(255,215,0,.1);color:var(--gold);border-color:var(--gold)}
+.preview-card{background:var(--surface);border-radius:24px;overflow:hidden;transition:all .5s ease;border:1px solid rgba(255,255,255,.04)}
+.preview-card.prem-mode{border:1.5px solid var(--gold);box-shadow:0 0 40px rgba(255,215,0,.08)}
+.preview-card.prem-mode::before{content:'';display:block;height:3px;background:linear-gradient(90deg,var(--gold),var(--orange),var(--gold))}
+.pc-inner{padding:28px 24px}
+.pc-header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.pc-avatar{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;transition:all .4s}
+.pc-avatar.free{background:var(--gold-dim);border:2px solid var(--gold-border);color:var(--gold)}
+.pc-avatar.prem{border:2.5px solid var(--gold);background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,107,53,.08));color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,.15)}
+.pc-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;line-height:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pc-verified{display:none;background:var(--gold);color:var(--black);padding:2px 8px;border-radius:6px;font-size:.5rem;font-weight:800;letter-spacing:.5px}
+.prem-mode .pc-verified{display:inline-flex}
+.pc-meta{font-size:.78rem;color:var(--gray);margin-top:3px}
+.pc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
+.pc-tag{padding:3px 10px;border-radius:16px;font-size:.62rem;font-weight:700}
+.pc-tag.pos{background:rgba(255,107,53,.1);color:var(--orange)}
+.pc-tag.grad{background:rgba(59,130,246,.1);color:#3b82f6}
+.pc-tag.nil{background:rgba(34,197,94,.1);color:var(--green)}
+.pc-tag.cog{background:rgba(155,89,182,.1);color:var(--purple)}
+.pc-tag.prem-only{display:none;background:linear-gradient(90deg,rgba(255,215,0,.1),rgba(255,107,53,.1));color:var(--gold);border:1px solid rgba(255,215,0,.12)}
+.prem-mode .pc-tag.prem-only{display:inline-block}
+.pc-stats{display:flex;gap:8px;margin-bottom:16px}
+.pc-st{text-align:center;flex:1;padding:10px 4px;background:rgba(255,255,255,.02);border-radius:8px}
+.pc-st .v{font-size:1.15rem;font-weight:800;color:var(--green)}
+.pc-st .l{font-size:.55rem;color:var(--gray);text-transform:uppercase}
+.pc-prem-stats{display:none;margin-bottom:16px}
+.prem-mode .pc-prem-stats{display:block}
+.pc-contact{display:none;width:100%;padding:12px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center;background:linear-gradient(135deg,var(--gold),var(--orange));color:var(--black);margin-bottom:16px;border:none;cursor:default}
+.prem-mode .pc-contact{display:block}
+.pc-cog{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px}
+.pc-cog-item{text-align:center;padding:8px 4px;background:rgba(255,255,255,.02);border-radius:8px}
+.pc-cog-item .ce{font-size:.9rem}.pc-cog-item .cn{font-family:'Bebas Neue',sans-serif;font-size:.55rem;letter-spacing:1px}.pc-cog-item .cl{font-size:.9rem;font-weight:800}.pc-cog-item .cd{font-size:.5rem;color:var(--gray)}
+.pc-meas{display:none;margin-bottom:16px}
+.prem-mode .pc-meas{display:block}
+.pc-meas-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.pc-meas-item{text-align:center;padding:8px 4px;background:rgba(255,255,255,.02);border-radius:8px}
+.pc-meas-item .v{font-size:.95rem;font-weight:800}.pc-meas-item .l{font-size:.5rem;color:var(--gray);text-transform:uppercase}
+.pc-bio{display:none;font-size:.8rem;color:var(--gray-light);line-height:1.6;padding:14px;background:rgba(255,255,255,.02);border-radius:10px;border-left:3px solid var(--gold);margin-bottom:16px}
+.prem-mode .pc-bio{display:block}
+.pc-socials{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:16px}
+.pc-social{padding:6px 12px;border-radius:6px;font-size:.65rem;font-weight:700;background:rgba(255,255,255,.04);color:var(--gray)}
+.pc-upgrade{text-align:center;padding:16px;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.1);border-radius:12px}
+.prem-mode .pc-upgrade{display:none}
+.pc-upgrade-text{font-size:.75rem;color:var(--gray);margin-bottom:8px}
+.pc-upgrade-btn{display:inline-block;padding:10px 24px;border-radius:8px;font-size:.78rem;font-weight:700;background:var(--gold);color:var(--black)}
+.pc-powered{text-align:center;padding:12px 0;font-size:.65rem;color:var(--gray);opacity:.6}
+.prem-mode .pc-powered{display:none}
+.preview-links{display:flex;justify-content:center;gap:12px;margin-top:20px}
+.preview-link{font-size:.78rem;font-weight:600;color:var(--gold);border-bottom:1px dashed rgba(255,215,0,.3);padding-bottom:2px;transition:all .2s}
+.preview-link:hover{border-bottom-color:var(--gold)}
+
 @media(max-width:768px){
 .stats-grid{grid-template-columns:repeat(2,1fr);gap:16px}
 .features-grid,.pricing-grid{grid-template-columns:1fr}
@@ -280,6 +339,102 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
 </div>
 </div></section>
 
+<!-- PROFILE PREVIEW -->
+<section class="section preview-section">
+<div class="wrap text-center">
+<div class="section-pill gold" data-en="See The Difference" data-es="Mira La Diferencia">See The Difference</div>
+<h2 class="section-title" data-en="Free vs Premium" data-es="Gratis vs Premium">Free vs Premium</h2>
+<p class="section-sub" data-en="Toggle between tiers and see exactly what your player profile looks like." data-es="Cambia entre niveles y mira exactamente cómo se ve tu perfil de jugador.">Toggle between tiers and see exactly what your player profile looks like.</p>
+
+<div class="preview-wrap">
+<div class="preview-toggle">
+<button class="preview-tog-btn active-free" id="togFree" onclick="setPrev(false)" data-en="🏀 Free" data-es="🏀 Gratis">🏀 Free</button>
+<button class="preview-tog-btn" id="togPrem" onclick="setPrev(true)" data-en="⭐ Premium — $49/yr" data-es="⭐ Premium — $49/año">⭐ Premium — $49/yr</button>
+</div>
+
+<div class="preview-card" id="prevCard">
+<div class="pc-inner">
+<div class="pc-header">
+<div class="pc-avatar free" id="pcAvatar">#23</div>
+<div>
+<div class="pc-name">Marcus Rivera <span class="pc-verified">✓ VERIFIED</span></div>
+<div class="pc-meta">PG · 6'1" · 175 lbs</div>
+<div class="pc-meta" style="font-size:.72rem">San Juan Warriors · Class of 2027</div>
+</div>
+</div>
+
+<div class="pc-tags">
+<span class="pc-tag pos">PG</span>
+<span class="pc-tag grad">Class of 2027</span>
+<span class="pc-tag nil">📣 NIL Available</span>
+<span class="pc-tag cog">🧠 L7 All-Star</span>
+<span class="pc-tag prem-only">⭐ Premium</span>
+</div>
+
+<button class="pc-contact" data-en="✉ Contact This Player" data-es="✉ Contactar Jugador">✉ Contact This Player</button>
+
+<div class="pc-stats">
+<div class="pc-st"><div class="v">18.5</div><div class="l">PPG</div></div>
+<div class="pc-st"><div class="v">4.2</div><div class="l">RPG</div></div>
+<div class="pc-st"><div class="v">7.1</div><div class="l">APG</div></div>
+</div>
+
+<div class="pc-prem-stats">
+<div class="pc-stats">
+<div class="pc-st"><div class="v">1.8</div><div class="l">SPG</div></div>
+<div class="pc-st"><div class="v">0.5</div><div class="l">BPG</div></div>
+<div class="pc-st"><div class="v">32</div><div class="l">GP</div></div>
+</div>
+<div class="pc-stats" style="margin-top:6px">
+<div class="pc-st"><div class="v">52%</div><div class="l">FG%</div></div>
+<div class="pc-st"><div class="v">38%</div><div class="l">3PT%</div></div>
+<div class="pc-st"><div class="v">81%</div><div class="l">FT%</div></div>
+</div>
+</div>
+
+<div class="pc-meas">
+<div class="pc-meas-row">
+<div class="pc-meas-item"><div class="v">6'1"</div><div class="l" data-en="Height" data-es="Altura">Height</div></div>
+<div class="pc-meas-item"><div class="v">175</div><div class="l" data-en="Weight" data-es="Peso">Weight</div></div>
+<div class="pc-meas-item"><div class="v">6'4"</div><div class="l" data-en="Wingspan" data-es="Enverg.">Wingspan</div></div>
+<div class="pc-meas-item"><div class="v">32"</div><div class="l">Vertical</div></div>
+</div>
+</div>
+
+<div class="pc-cog">
+<div class="pc-cog-item"><div class="ce">🟣</div><div class="cn" style="color:#9B59B6">REACT</div><div class="cl" style="color:#9B59B6">L8</div><div class="cd">MVP</div></div>
+<div class="pc-cog-item"><div class="ce">🟠</div><div class="cn" style="color:#FF6B35">RECALL</div><div class="cl" style="color:#FF6B35">L7</div><div class="cd">All-Star</div></div>
+<div class="pc-cog-item"><div class="ce">🔵</div><div class="cn" style="color:#00CED1">REFLEX</div><div class="cl" style="color:#00CED1">L9</div><div class="cd">Hall of Fame</div></div>
+<div class="pc-cog-item"><div class="ce">🟢</div><div class="cn" style="color:#00D9A5">REPLAY</div><div class="cl" style="color:#00D9A5">L6</div><div class="cd">Pro</div></div>
+<div class="pc-cog-item"><div class="ce">🟡</div><div class="cn" style="color:#9ACD32">RITMO</div><div class="cl" style="color:#9ACD32">L7</div><div class="cd">All-Star</div></div>
+<div class="pc-cog-item"><div class="ce">🏀</div><div class="cn" style="color:#FFD700">BEAT</div><div class="cl" style="color:#FFD700">L5</div><div class="cd">Elite</div></div>
+</div>
+
+<div class="pc-bio" data-en="Floor general with elite court vision. 3x All-Tournament. Running point for San Juan Warriors since 2024. Looking for NIL partnerships in sports tech, nutrition, and training." data-es="Director de juego con visión élite. 3x All-Tournament. Base titular de San Juan Warriors desde 2024. Buscando alianzas NIL en tecnología deportiva, nutrición y entrenamiento.">Floor general with elite court vision. 3x All-Tournament. Running point for San Juan Warriors since 2024. Looking for NIL partnerships in sports tech, nutrition, and training.</div>
+
+<div class="pc-socials">
+<span class="pc-social">📸 @mrivera23</span>
+<span class="pc-social">🎵 @mrivera23</span>
+<span class="pc-social">🎥 Highlights</span>
+</div>
+
+<div class="pc-upgrade">
+<div class="pc-upgrade-text" data-en="This is a Free profile. Want the full experience?" data-es="Este es un perfil Gratis. ¿Quieres la experiencia completa?">This is a Free profile. Want the full experience?</div>
+<a href="/join.html" class="pc-upgrade-btn" data-en="⭐ Go Premium" data-es="⭐ Ir Premium">⭐ Go Premium</a>
+</div>
+
+<div class="pc-powered">Powered by Hooporia™</div>
+</div>
+</div>
+
+<div class="preview-links">
+<a href="/preview-free.html" class="preview-link" data-en="View Full Free Preview →" data-es="Ver Preview Gratis Completo →">View Full Free Preview →</a>
+<a href="/preview-premium.html" class="preview-link" data-en="View Full Premium Preview →" data-es="Ver Preview Premium Completo →">View Full Premium Preview →</a>
+</div>
+</div>
+</div>
+</section>
+
 <section class="final-cta">
 <h2 data-en="YOUR GAME<span class='gold'>.</span><br>YOUR MINDSET<span class='gold'>.</span><br>YOUR FUTURE<span class='gold'>.</span>" data-es="TU JUEGO<span class='gold'>.</span><br>TU MENTALIDAD<span class='gold'>.</span><br>TU FUTURO<span class='gold'>.</span>">YOUR GAME<span class="gold">.</span><br>YOUR MINDSET<span class="gold">.</span><br>YOUR FUTURE<span class="gold">.</span></h2>
 <p class="final-sub" data-en="The Business of Basketball Starts Here" data-es="El Negocio del Baloncesto Empieza Aquí">The Business of Basketball Starts Here</p>
@@ -297,6 +452,15 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
 
 <script>
 try{var sl=localStorage.getItem('lc-lang');if(sl)setLang(sl);else setLang('en')}catch(e){setLang('en')}
+// Preview toggle
+window.setPrev=function(prem){
+var card=document.getElementById('prevCard'),av=document.getElementById('pcAvatar'),tf=document.getElementById('togFree'),tp=document.getElementById('togPrem');
+if(prem){card.classList.add('prem-mode');av.className='pc-avatar prem';tf.className='preview-tog-btn';tp.className='preview-tog-btn active-prem'}
+else{card.classList.remove('prem-mode');av.className='pc-avatar free';tf.className='preview-tog-btn active-free';tp.className='preview-tog-btn'}
+setLang(currentLang);
+};
+
+// Scroll reveal
 var reveals=document.querySelectorAll('.reveal');
 var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}})},{threshold:0.1});
 reveals.forEach(function(el,i){el.style.transitionDelay=(i%3)*0.1+'s';observer.observe(el)});
