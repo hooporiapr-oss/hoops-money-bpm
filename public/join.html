@@ -67,6 +67,11 @@ html[lang="es"] .en{display:none!important}
 .login-link{text-align:center;margin-top:20px;font-size:.85rem;color:#666}
 .login-link a{color:var(--orange);font-weight:700}
 
+.info-toggle{font-size:.7rem;color:var(--orange);cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-top:4px;user-select:none}
+.info-toggle:hover{text-decoration:underline}
+.info-dropdown{font-size:.75rem;color:#555;background:#f8f8f8;border:1px solid #eee;border-radius:8px;padding:10px 12px;margin-top:6px;display:none;line-height:1.5}
+.info-dropdown.open{display:block}
+
 @media(max-width:520px){
   .card{padding:28px 20px}
   .form-row{grid-template-columns:1fr}
@@ -75,6 +80,7 @@ html[lang="es"] .en{display:none!important}
 <script>
 var currentLang='en';
 function setLang(l){currentLang=l;document.documentElement.lang=l;document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.dataset.l===l)})}
+function toggleInfo(id){document.getElementById(id).classList.toggle('open')}
 </script>
 </head>
 <body>
@@ -192,15 +198,27 @@ function setLang(l){currentLang=l;document.documentElement.lang=l;document.query
       <label class="en">Highlight Reel Link</label><label class="es">Link de Highlights</label>
       <input type="url" id="highlight" placeholder="https://youtube.com/watch?v=...">
     </div>
+
     <div class="form-group">
       <label class="en">NIL Contact Email</label><label class="es">Email de Contacto NIL</label>
       <input type="email" id="nilEmail" placeholder="athlete@email.com">
-      <div style="font-size:.7rem;color:#888;margin-top:4px" class="en">Scouts and brands will use this to reach you</div>
-      <div style="font-size:.7rem;color:#888;margin-top:4px" class="es">Scouts y marcas usarán este email para contactarte</div>
+      <div class="info-toggle en" onclick="toggleInfo('nilEmailInfo')">&#9432; What's this?</div>
+      <div class="info-toggle es" onclick="toggleInfo('nilEmailInfo')">&#9432; ¿Qué es esto?</div>
+      <div class="info-dropdown" id="nilEmailInfo">
+        <span class="en">Your NIL (Name, Image, Likeness) contact email is the address that college coaches, scouts, and brands will use to reach out to you about sponsorship deals, recruiting, and NIL opportunities. This can be different from your login email — use whichever email you check most for business inquiries.</span>
+        <span class="es">Tu email de contacto NIL (Nombre, Imagen, Semejanza) es la dirección que coaches universitarios, scouts y marcas usarán para contactarte sobre acuerdos de patrocinio, reclutamiento y oportunidades NIL. Puede ser diferente a tu email de inicio de sesión — usa el correo que más revises para consultas profesionales.</span>
+      </div>
     </div>
+
     <div class="form-group">
       <label class="en">NIL Bio</label><label class="es">Bio NIL</label>
       <textarea id="nilBio" placeholder="Tell scouts and brands about yourself..." rows="3"></textarea>
+      <div class="info-toggle en" onclick="toggleInfo('nilBioInfo')">&#9432; What's this?</div>
+      <div class="info-toggle es" onclick="toggleInfo('nilBioInfo')">&#9432; ¿Qué es esto?</div>
+      <div class="info-dropdown" id="nilBioInfo">
+        <span class="en">Your NIL bio is a short personal statement that tells coaches, scouts, and brands who you are — on and off the court. Mention your playing style, achievements, goals, community involvement, and what makes you unique. Think of it as your elevator pitch to anyone looking to recruit or partner with you.</span>
+        <span class="es">Tu bio NIL es una breve declaración personal que le dice a coaches, scouts y marcas quién eres — dentro y fuera de la cancha. Menciona tu estilo de juego, logros, metas, participación comunitaria y lo que te hace único. Piénsalo como tu presentación rápida para cualquiera que quiera reclutarte o asociarse contigo.</span>
+      </div>
     </div>
 
     <div style="display:flex;align-items:flex-start;gap:10px;margin:20px 0 0;padding-top:16px;border-top:1px solid #eee">
@@ -288,7 +306,6 @@ async function submitProfile(){
     var password=document.getElementById('password').value;
     var slug=document.getElementById('slug').value.trim();
 
-    // Check slug availability
     var{data:existing}=await client.from('players').select('id').eq('slug',slug).maybeSingle();
     if(existing){
       btn.disabled=false;
@@ -296,11 +313,9 @@ async function submitProfile(){
       return showError(currentLang==='es'?'Este slug ya está en uso':'This profile URL is already taken');
     }
 
-    // Create auth account
     var{data:authData,error:authErr}=await client.auth.signUp({email,password});
     if(authErr)throw authErr;
 
-    // Insert player profile
     var{error:insertErr}=await client.from('players').insert({
       auth_user_id:authData.user.id,
       slug:slug,
