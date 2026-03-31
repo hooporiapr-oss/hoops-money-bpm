@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Discover — Hoops.Money</title>
-<meta name="description" content="Discover basketball talent. Browse player profiles, stats, and highlights from organized tournaments.">
+<title>Discover — Hooporia</title>
+<meta name="description" content="Discover basketball talent. Browse player profiles, stats, cognitive scores, and highlights on Hooporia.">
 <link rel="icon" href="/hooporia.png">
 <script>
 var currentLang='en';
@@ -126,14 +126,13 @@ html[lang="es"] .en{display:none!important}
 
 <div class="scout-hero">
   <h1><span class="en">🎓 Discover</span><span class="es">🎓 Discover</span></h1>
-  <p><span class="en">Discover basketball talent from organized tournaments. Filter by position, grad year, school, and more.</span><span class="es">Descubre talento de baloncesto en torneos organizados. Filtra por posición, año de graduación, escuela y más.</span></p>
+  <p><span class="en">Discover basketball talent. Browse player profiles, stats, cognitive scores, and basketball timelines.</span><span class="es">Descubre talento de baloncesto. Navega perfiles, estadísticas, puntajes cognitivos e historias de baloncesto.</span></p>
 </div>
 
 <div class="container">
 
   <div class="scout-tabs">
     <button class="s-tab active" onclick="showSTab('players',this)"><span class="en">Players</span><span class="es">Jugadores</span></button>
-    <button class="s-tab" onclick="showSTab('tournaments',this)"><span class="en">Tournaments</span><span class="es">Torneos</span></button>
   </div>
 
   <!-- PLAYERS TAB -->
@@ -176,24 +175,16 @@ html[lang="es"] .en{display:none!important}
     </div>
   </div>
 
-  <!-- TOURNAMENTS TAB -->
-  <div class="s-panel" id="sp-tournaments">
-    <div id="tourneyGrid" class="tourney-grid">
-      <div class="loading"><div class="spinner"></div><p style="color:var(--gray);font-size:.85rem"><span class="en">Loading tournaments...</span><span class="es">Cargando torneos...</span></p></div>
-    </div>
-  </div>
-
-</div>
 
 <div class="footer">
-  <span class="en">Powered by</span><span class="es">Impulsado por</span> <a href="/">Hoops.Money</a> · <a href="/privacy.html"><span class="en">Privacy</span><span class="es">Privacidad</span></a> · <a href="/terms.html"><span class="en">Terms</span><span class="es">Términos</span></a>
+  <span class="en">Powered by</span><span class="es">Impulsado por</span> <a href="/">Hooporia™</a> · <a href="/privacy.html"><span class="en">Privacy</span><span class="es">Privacidad</span></a> · <a href="/terms.html"><span class="en">Terms</span><span class="es">Términos</span></a>
 </div>
 
 <script>
 var SB_URL='https://rhsszirtbyvalugmbecm.supabase.co';
 var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJoc3N6aXJ0Ynl2YWx1Z21iZWNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3Mjg3MzUsImV4cCI6MjA5MDMwNDczNX0.MK3sYXhbdVtijzAkXJXvMlF1t0xfk6bRumBnovbQkRs';
 var sb=null;
-var allPlayers=[],allTourneys=[],teamMap={},operatorMap={};
+var allPlayers=[],operatorMap={};
 
 function showSTab(id,btn){
   document.querySelectorAll('.s-tab').forEach(function(t){t.classList.remove('active')});
@@ -214,19 +205,13 @@ function showSTab(id,btn){
     sb=window.supabase.createClient(SB_URL,SB_KEY);
 
     // Load all data in parallel
-    var[playersRes,teamsRes,tourneysRes,opsRes,programsRes,cogRes]=await Promise.all([
+   var[playersRes,opsRes,cogRes]=await Promise.all([
       sb.from('players').select('*').order('stats_ppg',{ascending:false}),
-      sb.from('tournament_teams').select('*'),
-      sb.from('tournaments').select('*').in('status',['active','completed']).order('start_date',{ascending:false}),
       sb.from('operators').select('id,business_name,slug,location').eq('active',true),
-      sb.from('programs').select('*').eq('active',true),
       sb.from('cognitive_scores').select('*')
     ]);
 
     allPlayers=playersRes.data||[];
-    allTourneys=tourneysRes.data||[];
-    var programMap={};
-    (programsRes.data||[]).forEach(function(p){programMap[p.id]=p});
 
     // Build cognitive lookup - best level per player
     var cogMap={};
@@ -241,30 +226,21 @@ function showSTab(id,btn){
       }
     });
 
-    // Build lookup maps
-    (teamsRes.data||[]).forEach(function(t){teamMap[t.id]=t});
     (opsRes.data||[]).forEach(function(o){operatorMap[o.id]=o});
 
     // Link team, operator, program, and cognitive info to players
-    allPlayers.forEach(function(p){
-      var team=teamMap[p.tournament_team_id];
-      p._teamName=team?team.team_name:'';
-      p._tourneyId=team?team.tournament_id:'';
-      var tourney=allTourneys.find(function(t){return t.id===p._tourneyId});
-      p._tourneyName=tourney?tourney.name_en:'';
+allPlayers.forEach(function(p){
       var op=operatorMap[p.operator_id];
       p._orgName=op?op.business_name:'';
       p._orgSlug=op?op.slug:'';
       p._location=op?op.location:'';
-      var prg=p.program_id?programMap[p.program_id]:null;
-      p._programName=prg?prg.name:'';
       var cog=cogMap[p.id];
       p._cogLevel=cog?Math.round(cog.total/cog.count):0;
       p._cogTests=cog?cog.tests:{};
     });
+    });
 
-    filterPlayers();
-    renderTourneys();
+filterPlayers();
   }catch(e){
     console.error('Scout hub error:',e);
     document.getElementById('playerGrid').innerHTML='<div class="empty-state"><div class="icon">⚠️</div><p>Error loading data</p></div>';
@@ -347,12 +323,6 @@ function renderPlayers(players){
   setLang(currentLang);
 }
 
-function renderTourneys(){
-  var el=document.getElementById('tourneyGrid');
-  if(!allTourneys.length){
-    el.innerHTML='<div class="empty-state"><div class="icon">🏆</div><p><span class="en">No tournaments yet. Check back soon!</span><span class="es">No hay torneos aún. ¡Vuelve pronto!</span></p></div>';
-    setLang(currentLang);return;
-  }
   el.innerHTML=allTourneys.map(function(t){
     var op=operatorMap[t.operator_id];
     var orgName=op?op.business_name:'';
