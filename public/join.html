@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Your Profile — Hoops.Money</title>
+<title>Create Your Profile — Hooporia</title>
 <link rel="icon" href="/hooporia.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -82,7 +82,7 @@ function setLang(l){currentLang=l;document.documentElement.lang=l;document.query
 <body>
 
 <div class="top-bar">
-  <a href="/" class="nav-brand">HOOPS<span class="dot">.</span>MONEY</a>
+  <a href="/" class="nav-brand">HOOPORIA</a>
   <div class="nav-right">
     <a href="/login.html" class="en">Log In</a>
     <a href="/login.html" class="es">Entrar</a>
@@ -356,7 +356,7 @@ async function submitProfile(){
     });
     if(insertErr)throw insertErr;
 
-    document.getElementById('profileLink').textContent='hoops.money/player/'+slug;
+    document.getElementById('profileLink').textContent='hooporia.com/player/'+slug;
     goStep(4);
   }catch(e){
     btn.disabled=false;
