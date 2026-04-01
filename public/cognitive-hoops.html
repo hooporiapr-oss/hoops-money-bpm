@@ -368,7 +368,7 @@ if(pl&&pl.length&&(pl[0].profile_tier==='premium'||pl[0].profile_tier==='pro'))r
 var el=document.getElementById(id);if(!el)return;
 el.classList.add('locked');el.removeAttribute('href');
 var ov=document.createElement('div');ov.className='lock-overlay';
-ov.innerHTML='<div class="lock-icon">🔒</div><div class="lock-text">PREMIUM CHALLENGE</div><a href="https://buy.stripe.com/eVq28s8yrgwuaMEgP88Zq03" class="lock-btn">⭐ Unlock — $49/yr</a><div class="lock-sub">or <a href="https://buy.stripe.com/00wdRa7un2FEf2U0Qa8Zq02" style="color:var(--gold)">$7/month</a></div>';
+ov.innerHTML='<div class="lock-icon">🔒</div><div class="lock-text">PREMIUM CHALLENGE</div><a href="https://buy.stripe.com/eVq28s8yrgwuaMEgP88Zq03" class="lock-btn">⭐ Unlock — $49/yr</a><div class="lock-sub">or <a href="https://buy.stripe.com/00wdRa7un2FEf2U0Qa8Zq02" style="color:var(--gold)">$7/month</a></div><div style="font-size:.55rem;color:var(--muted);margin-top:6px">⚠️ Use same email as your profile</div>';
 el.appendChild(ov);
 });
 }catch(e){console.log('Lock check skipped')}
