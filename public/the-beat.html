@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>THE BEAT OF THE GAME | Hoops.Money</title>
+<title>THE BEAT OF THE GAME | Hooporia</title>
 <link rel="icon" type="image/png" href="hooporia.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -628,9 +628,14 @@ function getRank(){for(var i=ranks.length-1;i>=0;i--){if(ps.xp>=ranks[i].xp)retu
 function getNextRank(){var ci=ranks.findIndex(function(r){return r.name===getRank().name});return ci<ranks.length-1?ranks[ci+1]:null}
 function addXP(a){var old=getRank();ps.xp+=a;var nw=getRank();if(nw.name!==old.name){showMilestone('🎉 '+nw.name+' '+nw.icon);playBuzzerBeater();launchConfetti()}saveStats()}
 function trackTap(perf){ps.totalTaps++;if(perf){ps.totalPerfects++;addXP(3)}else{addXP(1)}checkAchievements();saveStats()}
-function trackGame(){ps.gamesPlayed++;addXP(5);saveStats()}
-function trackStreak(s){if(s>ps.bestStreak)ps.bestStreak=s;checkAchievements();saveStats()}
-function trackSurvivalWin(){ps.survivalWins++;addXP(20);checkAchievements();saveStats()}
+function trackGame(){ps.gamesPlayed++;addXP(5);saveStats();syncBeatScore()}
+function syncBeatScore(){
+var spd=bpm<=60?'slow':bpm>=120?'fast':'med';
+var lv=best>=50?10:best>=40?9:best>=30?8:best>=25?7:best>=20?6:best>=15?5:best>=10?4:best>=5?3:best>=3?2:1;
+if(typeof syncCognitiveScore==='function')syncCognitiveScore(spd,lv,ps.xp,best,1);
+}
+function trackStreak(s){if(s>ps.bestStreak){ps.bestStreak=s;syncBeatScore()}checkAchievements();saveStats()}
+function trackSurvivalWin(){ps.survivalWins++;addXP(20);checkAchievements();saveStats();syncBeatScore()}
 function checkAchievements(){achievements.forEach(function(a){if(ps.unlockedAchievements.indexOf(a.id)===-1&&a.cond(ps)){ps.unlockedAchievements.push(a.id);addXP(10);var pi=document.getElementById('achievementPopupIcon'),pn=document.getElementById('achievementPopupName'),pp=document.getElementById('achievementPopup');pi.textContent=a.icon;pn.textContent=a.name;pp.classList.add('show');playSwish();setTimeout(function(){pp.classList.remove('show')},3000);saveStats()}})}
 
 window.updateStatsPanel=function(){var r=getRank(),nr=getNextRank();document.getElementById('rankIconLarge').textContent=r.icon;document.getElementById('rankName').textContent=r.name;
@@ -753,5 +758,7 @@ function showFeedback(q){clearTimeout(feedbackTimeout);var msgs={perfect:current
 tapBalls.forEach(function(c,i){c.addEventListener('touchstart',function(e){e.preventDefault();handleTap(i,c)},{passive:false});c.addEventListener('mousedown',function(e){e.preventDefault();handleTap(i,c)});c.addEventListener('touchend',function(e){e.preventDefault()},{passive:false})});
 })();
 </script>
+<script>window.COGNITIVE_TEST_NAME='beat';</script>
+<script src="/cognitive-sync.js"></script>
 </body>
 </html>
