@@ -346,6 +346,8 @@ nav{padding:0 12px}
 <div class="card"><div class="card-title">👤 Basic Info</div>
 <div class="field-row"><div class="field"><label>First Name</label><input type="text" id="fFirst" placeholder="Marcus"></div><div class="field"><label>Last Name</label><input type="text" id="fLast" placeholder="Rivera"></div></div>
 <div class="field-row"><div class="field"><label>Position</label><select id="fPos"><option value="">--</option><option value="PG">PG</option><option value="SG">SG</option><option value="SF">SF</option><option value="PF">PF</option><option value="C">C</option><option value="G">G</option><option value="F">F</option></select></div><div class="field"><label>Age</label><input type="number" id="fAge" placeholder="16"></div></div>
+<div class="field-row"><div class="field"><label data-en="Dominant Hand" data-es="Mano Dominante">Dominant Hand</label><select id="fHand"><option value="">--</option><option value="Right">Right</option><option value="Left">Left</option><option value="Both">Both</option></select></div><div class="field"><label data-en="Years Playing" data-es="Años Jugando">Years Playing</label><input type="number" id="fYears" placeholder="5"></div></div>
+<div class="field-row"><div class="field"><label data-en="Play Style" data-es="Estilo de Juego">Play Style</label><select id="fStyle"><option value="">--</option><option value="Scorer">Scorer</option><option value="Playmaker">Playmaker</option><option value="Defender">Defender</option><option value="Rebounder">Rebounder</option><option value="Sharpshooter">Sharpshooter</option><option value="Slasher">Slasher</option><option value="All-Around">All-Around</option></select></div><div class="field"><label data-en="Competition Level" data-es="Nivel de Competencia">Competition Level</label><select id="fComp"><option value="">--</option><option value="Rec League">Rec League</option><option value="School JV">School JV</option><option value="School Varsity">School Varsity</option><option value="AAU / Travel">AAU / Travel</option><option value="Elite / National">Elite / National</option><option value="College">College</option><option value="Pro">Pro</option></select></div></div>
 <div class="field"><label>Profile Slug</label><input type="text" id="fSlug" placeholder="marcus-rivera" disabled><div class="hint">hooporia.com/player/<span id="slugShow">—</span></div></div>
 <button class="btn-save" onclick="saveProfile()">Save Profile</button><span class="save-status" id="profileSaved">✓</span></div></div>
 
@@ -453,6 +455,7 @@ document.getElementById('fHeight').value=p.height||'';document.getElementById('f
 document.getElementById('fWingspan').value=p.wingspan||'';document.getElementById('fVertical').value=p.vertical||'';
 document.getElementById('fFirst').value=p.first_name||'';document.getElementById('fLast').value=p.last_name||'';
 document.getElementById('fPos').value=p.position||'';document.getElementById('fAge').value=p.age||'';
+document.getElementById('fHand').value=p.dominant_hand||'';document.getElementById('fYears').value=p.years_playing||'';document.getElementById('fStyle').value=p.play_style||'';document.getElementById('fComp').value=p.competition_level||'';
 document.getElementById('fSlug').value=p.slug||'';document.getElementById('slugShow').textContent=p.slug||'—';
 document.getElementById('fHighlight').value=p.highlight_link||'';
 document.getElementById('fIG').value=p.instagram||'';document.getElementById('fTikTok').value=p.tiktok||'';
@@ -461,7 +464,7 @@ document.getElementById('fNILEmail').value=p.nil_contact_email||'';document.getE
 
 async function saveStats(){var data={stats_ppg:parseFloat(document.getElementById('fPPG').value)||0,stats_rpg:parseFloat(document.getElementById('fRPG').value)||0,stats_apg:parseFloat(document.getElementById('fAPG').value)||0,stats_spg:parseFloat(document.getElementById('fSPG').value)||0,stats_bpg:parseFloat(document.getElementById('fBPG').value)||0,games_played:parseInt(document.getElementById('fGP').value)||0,fg_pct:parseFloat(document.getElementById('fFG').value)||0,three_pct:parseFloat(document.getElementById('f3PT').value)||0,ft_pct:parseFloat(document.getElementById('fFT').value)||0};var{error}=await sb.from('players').update(data).eq('id',player.id);if(!error){Object.assign(player,data);flashSaved('statsSaved');showToast('Stats saved!')}else showToast('Error saving')}
 async function saveMeasurables(){var data={height:document.getElementById('fHeight').value.trim(),weight:document.getElementById('fWeight').value.trim(),wingspan:document.getElementById('fWingspan').value.trim(),vertical:document.getElementById('fVertical').value.trim()};var{error}=await sb.from('players').update(data).eq('id',player.id);if(!error){Object.assign(player,data);flashSaved('measSaved');showToast('Measurables saved!')}else showToast('Error saving')}
-async function saveProfile(){var data={first_name:document.getElementById('fFirst').value.trim(),last_name:document.getElementById('fLast').value.trim(),position:document.getElementById('fPos').value,age:parseInt(document.getElementById('fAge').value)||null};var{error}=await sb.from('players').update(data).eq('id',player.id);if(!error){Object.assign(player,data);flashSaved('profileSaved');showToast('Profile saved!');document.getElementById('hName').textContent=data.first_name+' '+data.last_name}else showToast('Error saving')}
+async function saveProfile(){var data={first_name:document.getElementById('fFirst').value.trim(),last_name:document.getElementById('fLast').value.trim(),position:document.getElementById('fPos').value,age:parseInt(document.getElementById('fAge').value)||null,dominant_hand:document.getElementById('fHand').value,play_style:document.getElementById('fStyle').value,competition_level:document.getElementById('fComp').value,years_playing:parseInt(document.getElementById('fYears').value)||null};var{error}=await sb.from('players').update(data).eq('id',player.id);if(!error){Object.assign(player,data);flashSaved('profileSaved');showToast('Profile saved!');document.getElementById('hName').textContent=data.first_name+' '+data.last_name}else showToast('Error saving')}
 async function saveNIL(){var data={highlight_link:document.getElementById('fHighlight').value.trim(),instagram:document.getElementById('fIG').value.trim(),tiktok:document.getElementById('fTikTok').value.trim(),twitter:document.getElementById('fTwitter').value.trim(),youtube:document.getElementById('fYouTube').value.trim(),nil_contact_email:document.getElementById('fNILEmail').value.trim(),nil_bio:document.getElementById('fNILBio').value.trim(),nil_available:true};var{error}=await sb.from('players').update(data).eq('id',player.id);if(!error){Object.assign(player,data);flashSaved('nilSaved');showToast('NIL info saved!')}else showToast('Error saving')}
 
 async function loadCognitiveScores(){try{var{data:cogData}=await sb.from('cognitive_scores').select('*').eq('player_id',player.id);var tc={react:{icon:'🟣',name:'THE REACT',color:'#9B59B6'},recall:{icon:'🟠',name:'THE RECALL',color:'#FF6B35'},reflex:{icon:'🔵',name:'THE REFLEX',color:'#00CED1'},replay:{icon:'🟢',name:'THE REPLAY',color:'#00D9A5'},ritmo:{icon:'🟡',name:'THE RITMO',color:'#9ACD32'},beat:{icon:'🏀',name:'THE BEAT',color:'#FF8C42'}};var best={};if(cogData)cogData.forEach(function(s){if(!best[s.test_name]||s.level>best[s.test_name].level)best[s.test_name]=s});var grid=document.getElementById('cogGrid');grid.innerHTML='';var tl=0,cnt=0;var sl={slow:'Training',med:'Tempo',fast:'Elite'};['react','recall','reflex','replay','ritmo','beat'].forEach(function(t){var c=tc[t],b=best[t];
@@ -538,10 +541,46 @@ if(cogData)cogData.forEach(function(s){if(!bestByTest[s.test_name]||s.level>best
 var scores={};
 ['react','recall','reflex','replay','ritmo','beat'].forEach(function(t){if(bestByTest[t])scores[t]={level:bestByTest[t].level,speed:bestByTest[t].speed,score:bestByTest[t].score}});
 if(Object.keys(scores).length===0){loading.style.display='none';btn.style.display='';showToast('Play drills first to generate a report');return}
+
+// Gather timeline data
+var{data:seasonData}=await sb.from('player_seasons').select('*').eq('player_id',player.id).order('season_year',{ascending:false});
+var totalSeasons=0,totalGames=0,totalAwards=0,seasonHistory='';
+if(seasonData&&seasonData.length){
+totalSeasons=seasonData.length;
+totalGames=seasonData.reduce(function(s,x){return s+(x.games_played||0)},0);
+totalAwards=seasonData.filter(function(x){return x.awards&&x.awards.trim()}).length;
+seasonHistory=seasonData.map(function(s){
+var line=(s.season_year||'?')+' — '+(s.season_name||'Unknown')+' ('+( s.season_type||'other')+')';
+if(s.team_name)line+=' | Team: '+s.team_name;
+if(s.games_played)line+=' | '+s.games_played+' games';
+if(s.stats_ppg)line+=' | '+s.stats_ppg+' PPG';
+if(s.stats_rpg)line+=' '+s.stats_rpg+' RPG';
+if(s.stats_apg)line+=' '+s.stats_apg+' APG';
+if(s.awards)line+=' | Award: '+s.awards;
+return line;
+}).join('\n');
+}
+
 var res=await fetch('/api/cognitive-report',{
 method:'POST',
 headers:{'Content-Type':'application/json'},
-body:JSON.stringify({name:(player.first_name||'')+' '+(player.last_name||''),position:player.position||'',age:player.age||'',height:player.height||'',scores:scores})
+body:JSON.stringify({
+name:(player.first_name||'')+' '+(player.last_name||''),
+position:player.position||'',
+age:player.age||'',
+height:player.height||'',
+weight:player.weight||'',
+wingspan:player.wingspan||'',
+dominant_hand:player.dominant_hand||'',
+play_style:player.play_style||'',
+competition_level:player.competition_level||'',
+years_playing:player.years_playing||'',
+total_seasons:totalSeasons,
+total_games:totalGames,
+total_awards:totalAwards,
+season_history:seasonHistory,
+scores:scores
+})
 });
 var data=await res.json();
 if(data.error){throw new Error(data.error)}
