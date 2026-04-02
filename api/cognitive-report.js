@@ -34,42 +34,42 @@ module.exports = async function handler(req, res) {
   var testDescriptions = {
     react: {
       name: 'THE REACT',
-      dimension: 'R — React',
+      dimension: 'React',
       measures: 'Reaction & Rhythm',
       detail: 'Measures how fast the player processes and responds to visual stimuli at game speed. Tests rhythmic timing, anticipation, and the ability to play on tempo under pressure. Higher levels indicate a player who can operate at 120 BPM game pace without mental breakdown.',
       courtImpact: 'Fast break decisions, steal anticipation, help defense rotations, shot clock awareness, clutch-moment composure'
     },
     recall: {
       name: 'THE RECALL',
-      dimension: 'I — Instinct',
+      dimension: 'Recall',
       measures: 'Working Memory',
       detail: 'Measures how many positions, assignments, and reads the player can hold in active memory simultaneously. Scales from 5 to 14 elements. Higher levels indicate a player who can execute complex offensive sets while tracking defensive assignments.',
       courtImpact: 'Play execution, offensive set memorization, defensive assignment recall, in-game adjustment retention, coach instruction implementation'
     },
     reflex: {
       name: 'THE REFLEX',
-      dimension: 'T — Track',
+      dimension: 'Reflex',
       measures: 'Visual Processing / Court Vision',
       detail: 'Measures the ability to capture an entire scene in a split second — all player positions, open lanes, and spacing — in flash times as short as 0.8 seconds. This is the closest measurable analog to elite court vision.',
       courtImpact: 'Skip passes, no-look assists, drive-and-kick reads, fast break outlet vision, defensive rotations, reading the full floor in transition'
     },
     replay: {
       name: 'THE REPLAY',
-      dimension: 'N — Navigate',
+      dimension: 'Replay',
       measures: 'Sequence Memory / Play Recall',
       detail: 'Measures the ability to memorize and execute multi-step sequences under increasing complexity and speed. Sequences scale from 5 to 25 steps with unique audio-visual encoding. Directly correlates to play memorization and muscle memory formation.',
       courtImpact: 'Running complex offensive plays from memory, executing multi-read progressions, inbound play execution, defensive scheme memorization, film study retention'
     },
     ritmo: {
       name: 'THE RITMO',
-      dimension: 'O — Observe',
+      dimension: 'Ritmo',
       measures: 'Change Detection',
       detail: 'Measures how quickly the player spots what changed in a pattern — one element shifts, and the player must identify it within 4 beats. Patterns scale from 3 to 12 elements. This tests the ability to read defensive rotations and offensive movement in real time.',
       courtImpact: 'Reading defensive shifts, identifying the open man after a rotation, noticing backdoor cuts, pick-and-roll coverage reads, zone defense gap identification'
     },
     beat: {
       name: 'THE BEAT',
-      dimension: 'ME — Meter',
+      dimension: 'Beat',
       measures: 'Game Rhythm & Timing',
       detail: 'Measures internal rhythm and timing synchronization across multiple Latin-influenced musical patterns (Reggaeton, Bomba, Plena, Salsa, Clave, Merengue). Tests the player\'s ability to stay on beat under changing tempos — the cognitive foundation of flow state.',
       courtImpact: 'Dribble cadence control, pick-and-roll timing, shot rhythm consistency, transition pace management, game tempo control, clutch-moment rhythm maintenance'
@@ -154,15 +154,15 @@ module.exports = async function handler(req, res) {
   }
 
   // === THE PROMPT ===
-  var prompt = 'You are an elite basketball cognitive performance analyst for Hooporia. You write professional scouting reports using the RITNOME™ Cognitive Performance System — the only system in basketball that measures how a player thinks on the court.\n\n' +
+  var prompt = 'You are an elite basketball cognitive performance analyst for Hooporia. You write professional scouting reports using the BPM Basketball™ Cognitive Performance System — the only system in basketball that measures how a player thinks on the court.\n\n' +
 
-    'RITNOME™ stands for:\n' +
-    'R — React (Reaction & Rhythm)\n' +
-    'I — Instinct (Working Memory)\n' +
-    'T — Track (Visual Processing / Court Vision)\n' +
-    'N — Navigate (Sequence Memory / Play Recall)\n' +
-    'O — Observe (Change Detection)\n' +
-    'ME — Meter (Game Rhythm & Timing)\n\n' +
+    'BPM Basketball™ measures 6 cognitive dimensions:\n' +
+    'React (Reaction & Rhythm)\n' +
+    'Recall (Working Memory)\n' +
+    'Reflex (Visual Processing / Court Vision)\n' +
+    'Replay (Sequence Memory / Play Recall)\n' +
+    'Ritmo (Change Detection)\n' +
+    'Beat (Game Rhythm & Timing)\n\n' +
 
     'Scale: L1 (Rookie) → L10 (GOAT). Each level is earned through verified drill performance — players cannot fake these scores.\n\n' +
 
@@ -171,14 +171,14 @@ module.exports = async function handler(req, res) {
     strengthSummary +
     weakSummary + '\n\n' +
 
-    'RITNOME™ COGNITIVE SCORES:\n' +
+    'BPM COGNITIVE SCORES:\n' +
     'Overall: L' + overallLevel + ' (' + overallRating + ') | Tests Completed: ' + testCount + '/6\n\n' +
     scoreLines.join('\n\n') + '\n\n' +
 
     'GENERATE THE REPORT using these exact section headers:\n\n' +
 
     '🧠 COGNITIVE SCOUTING REPORT\n' +
-    'Player: [name] | Position: [pos] | Overall RITNOME™: L[X] [Rating]\n' +
+    'Player: [name] | Position: [pos] | Overall BPM: L[X] [Rating]\n' +
     (dominantHand ? 'Hand: [hand] | ' : '') +
     (playStyle ? 'Style: [style] | ' : '') +
     (competitionLevel ? 'Level: [competition] | ' : '') +
@@ -189,14 +189,14 @@ module.exports = async function handler(req, res) {
 
     '💪 COGNITIVE STRENGTHS\n' +
     'Top 2-3 strengths. For EACH strength:\n' +
-    '- Name the RITNOME™ dimension and level\n' +
+    '- Name the BPM dimension and level\n' +
     '- Translate into 2-3 specific basketball scenarios where this shows up\n' +
     '- Reference their position, ' + (dominantHand ? 'dominant hand (' + dominantHand + '), ' : '') + 'and competition level\n' +
     '- Use specific basketball language (pick-and-roll, drive-and-kick, weak-side rotation, skip pass, etc.)\n\n' +
 
     '⚡ AREAS FOR DEVELOPMENT\n' +
     '1-2 weakest dimensions. For EACH:\n' +
-    '- Name the RITNOME™ dimension and level\n' +
+    '- Name the BPM dimension and level\n' +
     '- Explain what this means on the court (specific game situations where this shows)\n' +
     '- Give a specific training recommendation using Hooporia drills\n' +
     '- Frame constructively — development opportunity, not weakness\n\n' +
@@ -232,7 +232,7 @@ module.exports = async function handler(req, res) {
     '- Every sentence must reference a basketball scenario, play, or situation\n' +
     '- NEVER use generic phrases like "shows promise" or "has potential" without specific context\n' +
     '- Use basketball terminology naturally: pick-and-roll, iso, drive-and-kick, weak-side, help defense, closeout, skip pass, outlet, drag screen, etc.\n' +
-    '- Reference their RITNOME™ dimensions by name (React, Instinct, Track, Navigate, Observe, Meter)\n' +
+    '- Reference their BPM dimensions by drill name (React, Recall, Reflex, Replay, Ritmo, Beat)\n' +
     (position ? '- Write EVERY section specific to their position (' + position + '). A PG report should read completely different from a C report.\n' : '') +
     (dominantHand ? '- Reference their dominant hand (' + dominantHand + ') in offensive and defensive analysis\n' : '') +
     (playStyle ? '- Write through the lens of their play style (' + playStyle + ')\n' : '') +
