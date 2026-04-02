@@ -62,7 +62,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,.92
 .ub ul{list-style:none;text-align:left;max-width:320px;margin:0 auto 20px}.ub li{font-size:.78rem;color:var(--gray-light);padding:4px 0;display:flex;align-items:center;gap:6px}.ub li::before{content:'✓';color:var(--gold);font-weight:700}
 .ubtn{display:inline-block;padding:14px 32px;border-radius:10px;font-size:.9rem;font-weight:700;background:linear-gradient(135deg,var(--gold),#FFA500);color:var(--black);margin-bottom:8px}
 .ubtn-sub{display:inline-block;padding:10px 28px;border-radius:10px;font-size:.8rem;font-weight:600;color:var(--gray-light);border:1.5px solid rgba(255,255,255,.12)}
-.pw{text-align:center;padding:24px}.pw a{font-size:.7rem;color:var(--gray);display:flex;align-items:center;justify-content:center;gap:6px}.pw img{height:16px;opacity:.5}
+
+/* FOOTER */
+footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;max-width:680px;margin:0 auto;padding:0 24px}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:.78rem;color:var(--gray);transition:color .2s}
+.footer-links a:hover{color:var(--white)}
+.footer-copy{font-size:.65rem;color:#444}
+
 @media(max-width:600px){.ht{flex-direction:column;text-align:center}.tags{justify-content:center}.cg{grid-template-columns:repeat(2,1fr)}.soc{justify-content:center}.nav-link{display:none}.nav-cta{display:none}}
 </style>
 </head>
@@ -188,9 +196,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,.92
 <a href="https://buy.stripe.com/eVq28s8yrgwuaMEgP88Zq03" class="ubtn" data-en="⭐ $49/year — Best Value" data-es="⭐ $49/año — Mejor Valor">⭐ $49/year — Best Value</a><br>
 <a href="https://buy.stripe.com/00wdRa7un2FEf2U0Qa8Zq02" class="ubtn-sub" data-en="$7/month" data-es="$7/mes">$7/month</a></div>
 
-<div class="pw"><a href="/"><img src="/hooporia.png" alt="Hooporia"> Powered by Hooporia™</a></div>
-<div style="text-align:center;padding:0 24px 16px;font-size:.55rem;color:#333" data-en="This program focuses on athlete development, branding, and future opportunities. We do not guarantee specific outcomes or opportunities." data-es="Este programa se enfoca en desarrollo del atleta, marca personal y oportunidades futuras. No garantizamos resultados específicos ni oportunidades.">This program focuses on athlete development, branding, and future opportunities. We do not guarantee specific outcomes or opportunities.</div>
 </div>
+
+<footer><div class="footer-inner">
+<div class="footer-links"><a href="/privacy.html" data-en="Privacy" data-es="Privacidad">Privacy</a><a href="/terms.html" data-en="Terms" data-es="Términos">Terms</a></div>
+<div class="footer-copy">© 2026 GoStar Digital LLC. All Rights Reserved.</div>
+</div></footer>
+
 <script>try{var sl=localStorage.getItem('lc-lang');setLang(sl||'en')}catch(e){setLang('en')}</script>
 </body>
 </html>
