@@ -55,10 +55,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,.92
 .signup-link{text-align:center;margin-top:24px;font-size:.875rem;color:#666}
 .signup-link a{color:var(--orange);font-weight:700}
 
+/* FOOTER */
+footer{position:fixed;bottom:0;left:0;right:0;padding:16px 0}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:.78rem;color:var(--gray);transition:color .2s}
+.footer-links a:hover{color:var(--white)}
+.footer-copy{font-size:.65rem;color:#444}
+
 @media(max-width:520px){
   .card{padding:32px 24px;margin-top:72px}
   .nav-link{display:none}
   .nav-cta{display:none}
+  footer{position:static;margin-top:32px}
 }
 </style>
 <script>
@@ -106,6 +115,12 @@ try{localStorage.setItem('lc-lang',l)}catch(e){}}
   <button class="btn-primary" id="loginBtn" onclick="doLogin()"><span class="en">Log In</span><span class="es">Entrar</span></button>
   <div class="signup-link"><span class="en">Don't have a profile? <a href="/join.html">Create one free</a></span><span class="es">¿No tienes perfil? <a href="/join.html">Crea uno gratis</a></span></div>
 </div>
+
+<footer><div class="footer-inner">
+<div class="footer-links"><a href="/privacy.html" data-en="Privacy" data-es="Privacidad">Privacy</a><a href="/terms.html" data-en="Terms" data-es="Términos">Terms</a></div>
+<div class="footer-copy">© 2026 GoStar Digital LLC. All Rights Reserved.</div>
+</div></footer>
+
 <script>
 var SB_URL='https://rhsszirtbyvalugmbecm.supabase.co';
 var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJoc3N6aXJ0Ynl2YWx1Z21iZWNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3Mjg3MzUsImV4cCI6MjA5MDMwNDczNX0.MK3sYXhbdVtijzAkXJXvMlF1t0xfk6bRumBnovbQkRs';
