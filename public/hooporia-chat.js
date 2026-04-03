@@ -64,6 +64,12 @@ window.setHcLang = function(l) {
   try { localStorage.setItem('lc-lang', l); } catch(e) {}
   updateLangUI();
   if (typeof setLang === 'function') setLang(l);
+  var firstMsg = document.querySelector('#hc-messages .hc-msg.bot');
+  if (firstMsg && messages.length > 0 && messages[0].role === 'assistant') {
+    var newGreeting = tx('greeting');
+    messages[0].content = newGreeting;
+    firstMsg.innerHTML = formatText(newGreeting);
+  }
 };
 
 // Inject styles
