@@ -102,8 +102,17 @@ style.textContent = `
 #hc-send:disabled{opacity:.3;cursor:not-allowed;transform:none}
 #hc-powered{text-align:center;padding:6px;font-size:.5rem;color:rgba(255,255,255,.15);letter-spacing:1.5px;font-family:'Bebas Neue',sans-serif}
 @media(max-width:420px){
-#hc-panel{right:8px;left:8px;width:auto;bottom:80px;height:calc(100dvh - 100px);max-height:calc(100dvh - 100px);border-radius:16px}
+#hc-panel{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:none;z-index:10000}
 #hc-fab{bottom:16px;right:16px;width:52px;height:52px;font-size:1.4rem}
+#hc-header{padding:16px 18px;padding-top:calc(16px + env(safe-area-inset-top))}
+#hc-header-title{font-size:1.2rem;letter-spacing:4px}
+.hc-msg{font-size:.95rem;line-height:1.65;padding:12px 16px;max-width:92%}
+#hc-input{font-size:.95rem;padding:12px 16px;border-radius:14px}
+#hc-send{width:44px;height:44px;font-size:1.1rem}
+#hc-input-wrap{padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.hc-quick-btn{font-size:.75rem;padding:8px 14px}
+#hc-messages{padding:16px 16px 10px}
+#hc-powered{font-size:.55rem;padding:8px}
 }
 `;
 document.head.appendChild(style);
