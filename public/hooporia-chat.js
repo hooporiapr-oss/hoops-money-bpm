@@ -53,7 +53,18 @@ function updateLangUI() {
   if (ph) ph.placeholder = tx('placeholder');
   var pw = document.getElementById('hc-powered');
   if (pw) pw.textContent = tx('powered');
+  var en = document.getElementById('hcLangEN');
+  var es = document.getElementById('hcLangES');
+  if (en) en.classList.toggle('active', lang === 'en');
+  if (es) es.classList.toggle('active', lang === 'es');
 }
+
+window.setHcLang = function(l) {
+  lang = l;
+  try { localStorage.setItem('lc-lang', l); } catch(e) {}
+  updateLangUI();
+  if (typeof setLang === 'function') setLang(l);
+};
 
 // Inject styles
 var style = document.createElement('style');
@@ -73,8 +84,12 @@ style.textContent = `
 #hc-header-icon{font-size:1.4rem}
 #hc-header-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:3px;color:#FFD700}
 #hc-header-dot{width:7px;height:7px;background:#22c55e;border-radius:50%;animation:hcPulse 2s ease-in-out infinite}
-#hc-close{background:none;border:none;color:rgba(255,255,255,.3);font-size:1.1rem;cursor:pointer;padding:6px 8px;border-radius:8px;transition:all .2s}
-#hc-close:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.6)}
+#hc-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--white,#fff);font-size:1rem;font-weight:700;cursor:pointer;padding:6px 10px;border-radius:8px;transition:all .2s;line-height:1}
+#hc-close:hover{background:rgba(255,255,255,.15);color:#fff}
+#hc-header-right{display:flex;align-items:center;gap:6px}
+#hc-lang-toggle{display:flex;gap:2px}
+.hc-lang-btn{padding:4px 8px;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.4);border-radius:4px;font-size:.55rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
+.hc-lang-btn.active{border-color:#FFD700;color:#FFD700}
 #hc-messages{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:rgba(255,215,0,.15) transparent}
 #hc-messages::-webkit-scrollbar{width:4px}
 #hc-messages::-webkit-scrollbar-thumb{background:rgba(255,215,0,.15);border-radius:2px}
@@ -125,8 +140,8 @@ var panel = document.createElement('div');
 panel.id = 'hc-panel';
 panel.innerHTML = `
 <div id="hc-header">
-<div id="hc-header-left"><span id="hc-header-icon">🏀</span><span id="hc-header-title">${tx('title')}</span><span id="hc-header-dot"></span></div>
-<button id="hc-close" onclick="document.getElementById('hc-fab').click()">✕</button>
+<div id="hc-header-left"><span id="hc-header-icon">🏀</span><a href="/" id="hc-header-title" style="text-decoration:none;color:inherit">${tx('title')}</a><span id="hc-header-dot"></span></div>
+<div id="hc-header-right"><div id="hc-lang-toggle"><button class="hc-lang-btn" id="hcLangEN" onclick="setHcLang('en')">EN</button><button class="hc-lang-btn" id="hcLangES" onclick="setHcLang('es')">ES</button></div><button id="hc-close" onclick="document.getElementById('hc-fab').click()">✕</button></div>
 </div>
 <div id="hc-messages"></div>
 <div id="hc-input-wrap">
@@ -150,6 +165,7 @@ function toggleChat() {
     showGreeting();
   }
   if (isOpen) {
+    updateLangUI();
     setTimeout(function() { inputEl.focus(); }, 300);
   }
 }
