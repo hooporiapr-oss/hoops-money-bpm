@@ -276,9 +276,8 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
 <a href="/cognitive-report.html" data-en="AI Report" data-es="Reporte IA">AI Report</a>
 <a href="/discover.html" data-en="Discover" data-es="Descubrir">Discover</a>
 <a href="/leaderboard.html" data-en="Leaderboard" data-es="Clasificación">Leaderboard</a>
-<a href="/login.html" data-en="Log In" data-es="Entrar">Log In</a>
 <div class="mm-lang"><button class="lang-btn active" data-l="en" onclick="setLang('en')">EN</button><button class="lang-btn" data-l="es" onclick="setLang('es')">ES</button></div>
-<a href="/join.html" class="mm-cta" data-en="Join Free" data-es="Únete Gratis">Join Free</a>
+<a href="#" onclick="doLogout();return false" class="mm-logout" style="color:var(--red)" data-en="Log Out" data-es="Salir">Log Out</a>
 </div></nav>
 <div class="container">
 <div id="authGate" class="auth-gate"><div class="spinner"></div><p id="authMsg">Loading your profile...</p></div>
