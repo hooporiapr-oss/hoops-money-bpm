@@ -289,7 +289,7 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
 <span class="tag tag-prem">⭐ PREMIUM</span>
 </div>
 
-<a href="mailto:marcus@example.com" class="contact-btn" data-en="📩 Contact Player" data-es="📩 Contactar Jugador">📩 Contact Player</a>
+<a href="/cdn-cgi/l/email-protection#7c111d0e1f090f3c19041d110c1019521f1311" class="contact-btn" data-en="📩 Contact Player" data-es="📩 Contactar Jugador">📩 Contact Player</a>
 
 <div class="demo-banner" data-en="⭐ This is a demo of the <strong>PREMIUM</strong> scouting report — $49/year. <a href='/preview-free.html'>See Free Profile →</a>" data-es="⭐ Demo del reporte <strong>PREMIUM</strong> — $49/año. <a href='/preview-free.html'>Ver Perfil Gratis →</a>">⭐ This is a demo of the <strong>PREMIUM</strong> scouting report — $49/year. <a href="/preview-free.html">See Free Profile →</a></div>
 
@@ -491,7 +491,7 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 try{var sl=localStorage.getItem('lc-lang');if(sl)setLang(sl);else setLang('en')}catch(e){setLang('en')}
 
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}
@@ -522,9 +522,4 @@ navigator.clipboard.writeText(text).then(function(){showToast(currentLang==='es'
 function shareLink(){
 var url=window.location.href;
 if(navigator.share){navigator.share({title:'AI Scouting Report — Marcus Rivera | Hooporia',url:url})}
-else{navigator.clipboard.writeText(url).then(function(){showToast(currentLang==='es'?'¡Link copiado!':'Link copied!')})}
-}
-</script>
-<script src="/hooporia-chat.js"></script>
-</body>
-</html>
+else{navigator.clipboard.writeText(url).the
