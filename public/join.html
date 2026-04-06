@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Your Profile — Hooporia</title>
-<link rel="icon" href="/hooporia.png">
+<title>Create Your Profile — BPM Basketball</title>
+<link rel="icon" href="/bpm-basketball.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -101,7 +101,7 @@ function toggleInfo(id){document.getElementById(id).classList.toggle('open')}
 <body>
 <script>function toggleMenu(){var m=document.getElementById('mobileMenu');var b=document.getElementById('hamBtn');if(m.classList.contains('open')){m.classList.remove('open');b.textContent='☰'}else{m.classList.add('open');b.textContent='✕'}}</script>
 <nav><div class="nav-inner">
-<a href="/" class="nav-brand"><img src="/hooporia.png" alt="Hooporia"><span>HOOPORIA</span></a>
+<a href="/" class="nav-brand"><img src="/bpm-basketball.png" alt="BPM Basketball"><span>BPM BASKETBALL</span></a>
 <div class="nav-right">
 <a href="/cognitive-hoops.html" class="nav-link" data-en="Drills" data-es="Drills">Drills</a>
 <a href="/cognitive-report.html" class="nav-link" data-en="Report" data-es="Reporte">Report</a>
@@ -143,7 +143,7 @@ function toggleInfo(id){document.getElementById(id).classList.toggle('open')}
     <h1 class="en">Player Info</h1><h1 class="es">Info del Jugador</h1>
     <p class="subtitle en">Step 2 — Tell us about you</p><p class="subtitle es">Paso 2 — Cuéntanos de ti</p>
     <div class="form-row"><div class="form-group"><label class="en">First Name</label><label class="es">Nombre</label><input type="text" id="firstName" placeholder="First name"></div><div class="form-group"><label class="en">Last Name</label><label class="es">Apellido</label><input type="text" id="lastName" placeholder="Last name"></div></div>
-    <div class="form-group"><label class="en">Profile URL</label><label class="es">URL del Perfil</label><input type="text" id="slug" placeholder="your-name" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9-]/g,'')"><div style="font-size:.7rem;color:#888;margin-top:4px">hooporia.com/player/<strong id="slugPreview">your-name</strong></div><script>document.getElementById('slug').addEventListener('input',function(){document.getElementById('slugPreview').textContent=this.value||'your-name'})</script></div>
+    <div class="form-group"><label class="en">Profile URL</label><label class="es">URL del Perfil</label><input type="text" id="slug" placeholder="your-name" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9-]/g,'')"><div style="font-size:.7rem;color:#888;margin-top:4px">bpmbasketball.com/player/<strong id="slugPreview">your-name</strong></div><script>document.getElementById('slug').addEventListener('input',function(){document.getElementById('slugPreview').textContent=this.value||'your-name'})</script></div>
     <div class="form-row"><div class="form-group"><label class="en">Position</label><label class="es">Posición</label><select id="position"><option value="PG">PG — Point Guard</option><option value="SG">SG — Shooting Guard</option><option value="SF">SF — Small Forward</option><option value="PF">PF — Power Forward</option><option value="C">C — Center</option><option value="G">G — Guard</option><option value="F">F — Forward</option></select></div><div class="form-group"><label class="en">Age</label><label class="es">Edad</label><input type="number" id="age" placeholder="16" min="13" max="99"></div></div>
     <div class="form-row"><div class="form-group"><label class="en">Height</label><label class="es">Altura</label><input type="text" id="height" placeholder="6'2&quot;"></div><div class="form-group"><label class="en">Weight</label><label class="es">Peso</label><input type="text" id="weight" placeholder="185 lbs"></div></div>
     <div class="form-group"><label class="en">Highlight Video Link</label><label class="es">Link de Video Highlight</label><input type="url" id="highlight" placeholder="https://youtube.com/watch?v=..."></div>
@@ -191,7 +191,7 @@ async function submitProfile(){
   if(existing){btn.disabled=false;btn.innerHTML='<span class="en">Create My Profile</span><span class="es">Crear Mi Perfil</span>';return showError(currentLang==='es'?'Este slug ya está en uso':'This profile URL is already taken')}
   var{data:authData,error:authErr}=await client.auth.signUp({email,password});if(authErr)throw authErr;
   var{error:insertErr}=await client.from('players').insert({auth_user_id:authData.user.id,slug:slug,first_name:document.getElementById('firstName').value.trim(),last_name:document.getElementById('lastName').value.trim(),position:document.getElementById('position').value,height:document.getElementById('height').value.trim(),weight:document.getElementById('weight').value.trim(),age:parseInt(document.getElementById('age').value)||null,highlight_link:document.getElementById('highlight').value.trim(),nil_available:true,nil_contact_email:document.getElementById('nilEmail').value.trim()||email,nil_bio:document.getElementById('nilBio').value.trim(),profile_tier:'free'});
-  if(insertErr)throw insertErr;document.getElementById('profileLink').textContent='hooporia.com/player/'+slug;goStep(4);
+  if(insertErr)throw insertErr;document.getElementById('profileLink').textContent='bpmbasketball.com/player/'+slug;goStep(4);
   }catch(e){btn.disabled=false;btn.innerHTML='<span class="en">Create My Profile</span><span class="es">Crear Mi Perfil</span>';showError(e.message||'Something went wrong')}
 }
 document.addEventListener('keydown',function(e){if(e.key==='Enter'){if(currentStep===1)goStep(2);else if(currentStep===2)goStep(3);else if(currentStep===3)submitProfile()}});
