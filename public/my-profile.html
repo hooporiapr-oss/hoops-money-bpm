@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>My Profile — Hooporia</title>
-<link rel="icon" href="/hooporia.png">
+<title>My Profile — BPM Basketball</title>
+<link rel="icon" href="/bpm-basketball.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -261,7 +261,7 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
 <body>
 <script>function toggleMenu(){var m=document.getElementById('mobileMenu');var b=document.getElementById('hamBtn');if(m.classList.contains('open')){m.classList.remove('open');b.textContent='☰'}else{m.classList.add('open');b.textContent='✕'}}</script>
 <nav><div class="nav-inner">
-<a href="/" class="nav-brand"><img src="/hooporia.png" alt="Hooporia"><span>HOOPORIA</span></a>
+<a href="/" class="nav-brand"><img src="/bpm-basketball.png" alt="BPM Basketball"><span>BPM BASKETBALL</span></a>
 <div class="nav-right">
 <a href="/cognitive-hoops.html" class="nav-link" data-en="Drills" data-es="Drills">Drills</a>
 <a href="/cognitive-report.html" class="nav-link" data-en="Report" data-es="Reporte">Report</a>
@@ -350,7 +350,7 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
 <div class="field-row"><div class="field"><label>Position</label><select id="fPos"><option value="">--</option><option value="PG">PG</option><option value="SG">SG</option><option value="SF">SF</option><option value="PF">PF</option><option value="C">C</option><option value="G">G</option><option value="F">F</option></select></div><div class="field"><label>Age</label><input type="number" id="fAge" placeholder="16"></div></div>
 <div class="field-row"><div class="field"><label data-en="Dominant Hand" data-es="Mano Dominante">Dominant Hand</label><select id="fHand"><option value="">--</option><option value="Right">Right</option><option value="Left">Left</option><option value="Both">Both</option></select></div><div class="field"><label data-en="Years Playing" data-es="Años Jugando">Years Playing</label><input type="number" id="fYears" placeholder="5"></div></div>
 <div class="field-row"><div class="field"><label data-en="Play Style" data-es="Estilo de Juego">Play Style</label><select id="fStyle"><option value="">--</option><option value="Scorer">Scorer</option><option value="Playmaker">Playmaker</option><option value="Defender">Defender</option><option value="Rebounder">Rebounder</option><option value="Sharpshooter">Sharpshooter</option><option value="Slasher">Slasher</option><option value="All-Around">All-Around</option></select></div><div class="field"><label data-en="Competition Level" data-es="Nivel de Competencia">Competition Level</label><select id="fComp"><option value="">--</option><option value="Rec League">Rec League</option><option value="School JV">School JV</option><option value="School Varsity">School Varsity</option><option value="AAU / Travel">AAU / Travel</option><option value="Elite / National">Elite / National</option><option value="College">College</option><option value="Pro">Pro</option></select></div></div>
-<div class="field"><label>Profile Slug</label><input type="text" id="fSlug" placeholder="marcus-rivera" disabled><div class="hint">hooporia.com/player/<span id="slugShow">—</span></div></div>
+<div class="field"><label>Profile Slug</label><input type="text" id="fSlug" placeholder="marcus-rivera" disabled><div class="hint">bpmbasketball.com/player/<span id="slugShow">—</span></div></div>
 <button class="btn-save" onclick="saveProfile()">Save Profile</button><span class="save-status" id="profileSaved">✓</span></div></div>
 <div class="tab-panel" id="tab-nil">
 <div class="card"><div class="card-title">🎥 Highlights</div>
@@ -418,7 +418,7 @@ function showTab(id,el){document.querySelectorAll('.tab').forEach(function(t){t.
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}
 function flashSaved(id){var el=document.getElementById(id);el.classList.add('show');setTimeout(function(){el.classList.remove('show')},2000)}
 function toggleInfo(id){document.getElementById(id).classList.toggle('open')}
-function copyProfileLink(){var slug=player?player.slug:'';var link='hooporia.com/player/'+slug;navigator.clipboard.writeText('https://'+link).then(function(){showToast('Link copied!')}).catch(function(){showToast(link)})}
+function copyProfileLink(){var slug=player?player.slug:'';var link='bpmbasketball.com/player/'+slug;navigator.clipboard.writeText('https://'+link).then(function(){showToast('Link copied!')}).catch(function(){showToast(link)})}
 function toggleSeasonFields(){var type=document.getElementById('sfType').value;var sf=document.getElementById('sfSchoolFields');var of=document.getElementById('sfOtherFields');var so=document.getElementById('sfSchoolOrgRow');var ng=document.getElementById('sfNonSchoolGP');if(type==='school'){sf.style.display='';of.style.display='none';so.style.display='';ng.style.display='none'}else{sf.style.display='none';of.style.display='';so.style.display='none';ng.style.display=''}}
 
 (async function init(){
