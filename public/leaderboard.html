@@ -256,7 +256,7 @@ await new Promise(function(r,j){var s=document.createElement('script');s.src='ht
 sb=window.supabase.createClient(SB_URL,SB_KEY);
 
 var[playersRes,scoresRes]=await Promise.all([
-sb.from('players').select('id,first_name,last_name,slug,position,grad_year,school,jersey_number,height'),
+sb.from('players').select('id,first_name,last_name,slug,position,grad_year,school,jersey_number,height,gender'),
 sb.from('cognitive_scores').select('*')
 ]);
 
@@ -292,6 +292,8 @@ Object.keys(playerBests).forEach(function(pid){
 var p=playerMap[pid];
 if(!p)return;
 if(pos&&p.position!==pos)return;
+var gender=document.getElementById('fGender').value;
+if(gender&&p.gender!==gender)return;
 if(grad&&String(p.grad_year)!==grad)return;
 
 var tests=playerBests[pid];
