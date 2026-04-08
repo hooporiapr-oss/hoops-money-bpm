@@ -63,7 +63,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,.92
 .test-pill{padding:8px 16px;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:all .2s;border:1.5px solid rgba(255,255,255,.08);background:transparent;color:var(--gray)}
 .test-pill:hover{color:var(--white);border-color:rgba(255,255,255,.15)}
 .test-pill.active{color:var(--black)}
-.test-pill[data-test="overall"].active{background:var(--gold);border-color:var(--gold)}
+.test-pill[data-test="WMI overall"].active{background:var(--gold);border-color:var(--gold)}
 .test-pill[data-test="react"].active{background:var(--purple);border-color:var(--purple)}
 .test-pill[data-test="recall"].active{background:var(--orange);border-color:var(--orange)}
 .test-pill[data-test="reflex"].active{background:var(--cyan);border-color:var(--cyan)}
@@ -186,7 +186,7 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0;margin-top:40px
 
 <!-- TEST PILLS -->
 <div class="test-pills">
-<button class="test-pill active" data-test="overall" onclick="setTest('overall',this)" data-en="🏆 Overall" data-es="🏆 General">🏆 Overall</button>
+<button class="test-pill active" data-test="wmi overall" onclick="setTest('wmi overall',this)" data-en="🏆 WMI Overall" data-es="🏆 General">🏆 WMI Overall</button>
 <button class="test-pill" data-test="react" onclick="setTest('react',this)">🟣 React</button>
 <button class="test-pill" data-test="recall" onclick="setTest('recall',this)">🟠 Recall</button>
 <button class="test-pill" data-test="reflex" onclick="setTest('reflex',this)">🔵 Reflex</button>
@@ -237,7 +237,7 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0;margin-top:40px
 <script>
 var SB_URL='https://rhsszirtbyvalugmbecm.supabase.co';
 var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJoc3N6aXJ0Ynl2YWx1Z21iZWNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3Mjg3MzUsImV4cCI6MjA5MDMwNDczNX0.MK3sYXhbdVtijzAkXJXvMlF1t0xfk6bRumBnovbQkRs';
-var sb=null,allPlayers=[],allScores=[],playerMap={},currentTest='overall';
+var sb=null,allPlayers=[],allScores=[],playerMap={},currentTest='wmi overall';
 
 var testColors={react:'#9B59B6',recall:'#FF6B35',reflex:'#00CED1',replay:'#00D9A5',ritmo:'#9ACD32'};
 var ratingLabels={1:'Rookie',2:'Developing',3:'Solid',4:'Advanced',5:'Elite',6:'Pro',7:'All-Star',8:'MVP',9:'Hall of Fame',10:'GOAT'};
@@ -297,7 +297,7 @@ if(gender&&p.gender!==gender)return;
 if(grad&&String(p.grad_year)!==grad)return;
 
 var tests=playerBests[pid];
-if(currentTest==='overall'){
+if(currentTest==='wmi overall'){
 var total=0,count=0;
 ['react','recall','reflex','replay','ritmo'].forEach(function(t){
 if(tests[t]){total+=tests[t].level;count++}
@@ -341,10 +341,10 @@ podiumEl.style.display='flex';
 var top3=[entries[1],entries[0],entries[2]];
 var medals=['🥈','🥇','🥉'];
 var barColors=[testColors[currentTest]||'#C0C0C0',testColors[currentTest]||'#FFD700',testColors[currentTest]||'#CD7F32'];
-if(currentTest==='overall')barColors=['#C0C0C0','#FFD700','#CD7F32'];
+if(currentTest==='wmi overall')barColors=['#C0C0C0','#FFD700','#CD7F32'];
 podiumEl.innerHTML=top3.map(function(e,i){
 var p=e.player;
-var levelColor=currentTest==='overall'?(e.roundedLevel>=8?'var(--gold)':e.roundedLevel>=5?'var(--green)':'var(--orange)'):(testColors[currentTest]||'var(--gold)');
+var levelColor=currentTest==='wmi overall'?(e.roundedLevel>=8?'var(--gold)':e.roundedLevel>=5?'var(--green)':'var(--orange)'):(testColors[currentTest]||'var(--gold)');
 return'<div class="podium-spot" onclick="window.location.href=\'/player/'+esc(p.slug)+'\'">'+
 '<div class="podium-medal">'+medals[i]+'</div>'+
 '<div class="podium-avatar">#'+(p.jersey_number||'—')+'</div>'+
@@ -356,7 +356,7 @@ return'<div class="podium-spot" onclick="window.location.href=\'/player/'+esc(p.
 }).join('');
 }else{podiumEl.style.display='none'}
 
-var testLabel=currentTest==='overall'?(currentLang==='es'?'General':'Overall'):currentTest.toUpperCase();
+var testLabel=currentTest==='wmi overall'?(currentLang==='es'?'General':'WMI Overall'):currentTest.toUpperCase();
 var html='<table class="lb-table"><thead><tr>'+
 '<th>#</th>'+
 '<th data-en="Player" data-es="Jugador">Player</th>'+
@@ -367,10 +367,10 @@ var html='<table class="lb-table"><thead><tr>'+
 entries.forEach(function(e,i){
 var p=e.player;
 var rankClass=i===0?'gold':i===1?'silver':i===2?'bronze':'';
-var levelColor=currentTest==='overall'?(e.roundedLevel>=8?'var(--gold)':e.roundedLevel>=5?'var(--green)':'var(--orange)'):(testColors[currentTest]||'var(--gold)');
+var levelColor=currentTest==='wmi overall'?(e.roundedLevel>=8?'var(--gold)':e.roundedLevel>=5?'var(--green)':'var(--orange)'):(testColors[currentTest]||'var(--gold)');
 
 var scoresHtml='';
-if(currentTest==='overall'){
+if(currentTest==='wmi overall'){
 ['react','recall','reflex','replay','ritmo'].forEach(function(t){
 if(e.tests[t])scoresHtml+='<span class="lb-score-chip '+t+'">'+t.charAt(0).toUpperCase()+t.slice(1)+' L'+e.tests[t].level+'</span>';
 });
