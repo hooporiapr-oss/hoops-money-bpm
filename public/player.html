@@ -65,6 +65,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,.92
 .cog-overall-lbl{font-size:.6rem;color:var(--gray);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
 .cog-overall-val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem}
 .cog-overall-rat{font-size:.75rem;color:var(--gray)}
+.cog-overall-bpm{font-size:.7rem;color:var(--gray);margin-top:2px}
 .cog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .cog-item{text-align:center;padding:12px 8px;background:rgba(255,255,255,.02);border-radius:10px;border:1px solid rgba(255,255,255,.03)}
 .cog-emoji{font-size:1.1rem;margin-bottom:4px}.cog-name{font-family:'Bebas Neue',sans-serif;font-size:.65rem;letter-spacing:1px;margin-bottom:3px}.cog-lvl{font-size:1.1rem;font-weight:800}.cog-det{font-size:.55rem;color:var(--gray)}
@@ -195,7 +196,7 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
 <a href="/index.html" data-en="AI Report" data-es="Reporte IA">AI Report</a>
 <a href="/discover.html" data-en="Discover" data-es="Descubrir">Discover</a>
 <a href="/leaderboard.html" data-en="Leaderboard" data-es="Clasificación">Leaderboard</a>
-<a href="/faq.html" data-en="FAQ" data-es="Drills">FAQ</a>
+<a href="/faq.html" data-en="FAQ" data-es="FAQ">FAQ</a>
 <a href="/login.html" data-en="Log In" data-es="Entrar">Log In</a>
 <div class="mm-lang"><button class="lang-btn active" data-l="en" onclick="setLang('en')">EN</button><button class="lang-btn" data-l="es" onclick="setLang('es')">ES</button></div>
 <a href="/join.html" class="mm-cta" data-en="Join Free" data-es="Únete Gratis">Join Free</a>
@@ -212,7 +213,7 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:28px 0}
 <script>
 var SB_URL='https://rhsszirtbyvalugmbecm.supabase.co';
 var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJoc3N6aXJ0Ynl2YWx1Z21iZWNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3Mjg3MzUsImV4cCI6MjA5MDMwNDczNX0.MK3sYXhbdVtijzAkXJXvMlF1t0xfk6bRumBnovbQkRs';
-var sb,TC={react:'#9B59B6',recall:'#FF6B35',reflex:'#00CED1',replay:'#00D9A5',ritmo:'#9ACD32',beat:'#FFD700'},TN={react:'THE REACT',recall:'THE RECALL',reflex:'THE REFLEX',replay:'THE REPLAY',ritmo:'THE RITMO',beat:'THE BEAT'},TE={react:'🟣',recall:'🟠',reflex:'🔵',replay:'🟢',ritmo:'🟡',beat:'🏀'},RL={1:'Rookie',2:'Developing',3:'Solid',4:'Advanced',5:'Elite',6:'Pro',7:'All-Star',8:'MVP',9:'Hall of Fame',10:'GOAT'},SL={slow:'Training',med:'Tempo',fast:'Elite'};
+var sb,TC={react:'#9B59B6',recall:'#FF6B35',reflex:'#00CED1',replay:'#00D9A5',ritmo:'#9ACD32',beat:'#FFD700'},TN={react:'THE REACT',recall:'THE RECALL',reflex:'THE REFLEX',replay:'THE REPLAY',ritmo:'THE RITMO',beat:'THE BEAT'},TE={react:'🟣',recall:'🟠',reflex:'🔵',replay:'🟢',ritmo:'🟡',beat:'🏀'},RL={1:'Rookie',2:'Developing',3:'Solid',4:'Advanced',5:'Elite',6:'Pro',7:'All-Star',8:'MVP',9:'Hall of Fame',10:'GOAT'},SL={slow:'60 BPM',med:'90 BPM',fast:'120 BPM'};
 function esc(s){if(!s)return'';var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function cogAvg(b){var t=0,c=0;['react','recall','reflex','replay','ritmo','beat'].forEach(function(k){if(b[k]){t+=b[k].level;c++}});return c?Math.round(t/c):0}
 function stB(v,l){return'<div class="stat"><div class="val">'+v+'</div><div class="lbl">'+l+'</div></div>'}
@@ -276,7 +277,6 @@ h+='<button class="hf-btn" id="hfBtn" onclick="giveHighFive(\''+p.id+'\','+hfCou
 }
 h+='</div>';
 h+='<div class="hf-milestone" id="hfMilestone"></div>';
-// Share section
 h+='<div class="hf-share'+(hfGiven?' show':'')+'" id="hfShare">';
 h+='<button class="hf-share-btn" onclick="shareProfile(\''+playerFullName+'\',\''+playerUrl+'\','+hfCount+')">📣 <span data-en="Share This Profile" data-es="Compartir Perfil">Share This Profile</span></button>';
 h+='</div>';
@@ -347,7 +347,8 @@ h+='</div></div>';
 h+='<div class="card '+(pm?'pc':'')+'"><div class="card-title" data-en="🧠 Hoops Mindset" data-es="🧠 Hoops Mindset">🧠 Hoops Mindset</div><div style="font-size:.6rem;color:var(--green);margin-top:-10px;margin-bottom:12px;display:flex;align-items:center;gap:4px" data-en="✓ Verified by BPM Basketball" data-es="✓ Verificado por BPM Basketball">✓ Verified by BPM Basketball</div>';
 var tc=Object.keys(bt).length;
 if(tc>0){var av=cogAvg(bt),ac=av>=8?'var(--gold)':av>=5?'var(--green)':'var(--orange)';
-h+='<div class="cog-overall"><div class="cog-overall-lbl" data-en="OVERALL RATING" data-es="CALIFICACIÓN GENERAL">OVERALL RATING</div><div class="cog-overall-val" style="color:'+ac+'">L'+av+'</div><div class="cog-overall-rat">'+(RL[av]||'')+'</div></div>';
+var spc={slow:0,med:0,fast:0};Object.keys(bt).forEach(function(k){if(bt[k]&&bt[k].speed)spc[bt[k].speed]++});var domSpd='slow';if(spc.fast>=spc.med&&spc.fast>=spc.slow)domSpd='fast';else if(spc.med>=spc.slow)domSpd='med';
+h+='<div class="cog-overall"><div class="cog-overall-lbl" data-en="OVERALL RATING" data-es="CALIFICACIÓN GENERAL">OVERALL RATING</div><div class="cog-overall-val" style="color:'+ac+'">L'+av+'</div><div class="cog-overall-bpm">'+SL[domSpd]+'</div><div class="cog-overall-rat">'+(RL[av]||'')+'</div></div>';
 h+='<div class="cog-grid">';
 ['react','recall','reflex','replay','ritmo','beat'].forEach(function(t){var s=bt[t];
 if(s){h+='<div class="cog-item"><div class="cog-emoji">'+TE[t]+'</div><div class="cog-name" style="color:'+TC[t]+'">'+TN[t]+'</div><div class="cog-lvl" style="color:'+TC[t]+'">L'+s.level+'</div><div class="cog-det">'+SL[s.speed]+' · '+s.score+' pts</div><div class="cog-bar"><div class="cog-bar-f" style="width:'+(s.level*10)+'%;background:'+TC[t]+'"></div></div></div>'}
@@ -388,7 +389,6 @@ if(p.twitter)h+='<a href="https://x.com/'+esc(p.twitter.replace('@','')).trim()+
 if(p.youtube)h+='<a href="'+esc(p.youtube)+'" target="_blank" class="social-btn">📺 YouTube</a>';
 h+='</div></div>'}
 
-// UPGRADE BANNER (Free only)
 if(!pm){h+='<div class="upgrade-banner"><h3 data-en="⭐ GO PREMIUM" data-es="⭐ HAZTE PREMIUM">⭐ GO PREMIUM</h3>';
 h+='<p data-en="Unlock the full profile experience" data-es="Desbloquea la experiencia completa">Unlock the full profile experience</p><ul>';
 h+='<li data-en="Verified badge ✓" data-es="Insignia verificada ✓">Verified badge ✓</li>';
@@ -426,20 +426,16 @@ var btn=document.getElementById('hfBtn');
 var countEl=document.getElementById('hfCount');
 if(!btn)return;
 var newCount=currentCount+1;
-// Animate counter
 countEl.textContent=newCount;
 countEl.classList.remove('pop');
 void countEl.offsetWidth;
 countEl.classList.add('pop');
-// Update button
 btn.classList.add('done');
 btn.onclick=null;
 btn.innerHTML='<span class="hf-emoji">✋</span> <span>High-Fived!</span>';
 try{localStorage.setItem(hfKey,'1')}catch(e){}
-// Show share prompt
 var shareEl=document.getElementById('hfShare');
 if(shareEl)shareEl.classList.add('show');
-// Check milestones
 var milestones=[10,25,50,100,250,500,1000];
 var hit=milestones.find(function(m){return newCount===m});
 if(hit){
@@ -448,7 +444,6 @@ var msgs={10:'🎉 10 High-Fives!',25:'🔥 25 High-Fives!',50:'⭐ 50 High-Five
 if(msEl){msEl.textContent=msgs[hit]||('🎉 '+hit+' High-Fives!');msEl.classList.add('show')}
 launchConfetti();
 }
-// Update Supabase
 try{await sb.from('players').update({high_fives:newCount}).eq('id',playerId)}catch(e){console.log('High-five save error:',e)}
 };
 
