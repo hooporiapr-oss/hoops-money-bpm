@@ -115,25 +115,25 @@ html,body{height:100%;overflow-x:hidden;overflow-y:auto;font-family:'Outfit',san
 .letsgo-btn{width:100%;padding:16px 24px;border:none;border-radius:12px;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:4px;cursor:pointer;background:linear-gradient(135deg,var(--lime),var(--lime-light));color:var(--dark);box-shadow:0 4px 20px rgba(154,205,50,0.3);transition:all 0.3s}
 .letsgo-btn:active{transform:scale(0.98)}
 
-#screen-play{background:var(--dark);overflow:hidden}
-.play-container{width:100%;max-width:420px;height:calc(100dvh - var(--nav-height) - env(safe-area-inset-top));margin:0 auto;padding:8px 10px;display:flex;flex-direction:column}
-.play-stats{display:flex;justify-content:center;gap:15px;padding:6px 10px;background:var(--card);border-radius:8px;margin-bottom:6px}
+#screen-play{background:var(--dark)}
+.play-container{display:flex;flex-direction:column;align-items:center;max-width:420px;margin:0 auto;min-height:calc(100dvh - var(--nav-height) - env(safe-area-inset-top) - 40px)}
+.play-stats{display:flex;justify-content:center;gap:16px;margin-bottom:10px;width:100%}
 .play-stat{text-align:center}
-.play-stat-value{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--lime);line-height:1}
-.play-stat-label{font-size:0.45rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
-.play-message{background:var(--card);border:2px solid var(--lime);border-radius:8px;padding:8px;text-align:center;margin-bottom:6px}
-.play-message-text{font-family:'Bebas Neue',sans-serif;font-size:0.95rem;letter-spacing:2px;color:var(--text)}
+.play-stat-value{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--lime)}
+.play-stat-label{font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.play-message{text-align:center;min-height:28px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.play-message-text{font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:2px;color:var(--text);transition:all 0.2s}
 .play-message-text.watch{color:var(--gold)}
 .play-message-text.echo{color:var(--lime)}
 .play-message-text.find{color:var(--teal)}
-.play-message-text.perfect{color:var(--teal)}
+.play-message-text.perfect{color:var(--teal);text-shadow:0 0 10px var(--teal)}
 .play-message-text.miss{color:var(--pink)}
 .play-message-text.timeout{color:var(--pink)}
-.play-progress{display:flex;justify-content:center;align-items:center;gap:10px;padding:6px;background:var(--card);border-radius:8px;margin-bottom:6px}
-.play-progress-label{font-family:'Bebas Neue',sans-serif;font-size:0.7rem;color:var(--muted);letter-spacing:1px}
+.play-progress{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.play-progress-label{font-size:0.6rem;color:var(--muted);letter-spacing:1px}
 .play-progress-stars{display:flex;gap:8px}
-.play-progress-star{font-size:1.3rem;opacity:0.25;transition:all 0.3s}
-.play-progress-star.earned{opacity:1;transform:scale(1.15);filter:drop-shadow(0 0 4px var(--lime))}
+.play-progress-star{font-size:1rem;opacity:0.2;transition:all 0.3s}
+.play-progress-star.earned{opacity:1;transform:scale(1.2);filter:drop-shadow(0 0 4px var(--lime))}
 .timer-wrap{width:100%;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;margin-bottom:6px;overflow:hidden;opacity:0;transition:opacity 0.2s}
 .timer-wrap.active{opacity:1}
 .timer-bar{height:100%;width:100%;background:var(--lime);border-radius:3px;transition:none}
