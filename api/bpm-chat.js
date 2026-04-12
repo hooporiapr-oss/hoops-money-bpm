@@ -147,7 +147,7 @@ async function fetchPlayerData(filters) {
           totalLevel += bestLevel;
           totalScore += bestScore;
           drillCount++;
-          drillSummary.push(`${drill.charAt(0).toUpperCase() + drill.slice(1)}: L${bestLevel} (${bestScore}pts, ${bestSpeed === 'fast' ? 'Elite' : bestSpeed === 'med' ? 'Tempo' : 'Training'})`);
+          drillSummary.push(`${drill.charAt(0).toUpperCase() + drill.slice(1)}: L${bestLevel} (${bestScore}pts, ${bestSpeed === 'fast' ? '120 BPM' : bestSpeed === 'med' ? '90 BPM' : '60 BPM'})`);
         }
       }
     }
